@@ -73,7 +73,7 @@ const Profile = ({ repos }: ProfileProps) => {
                 whileTap={{ scale: 0.95 }}
                 href="/cv_en.pdf"
                 download
-                className="inline-flex items-center gap-1.5 rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-blue-500/40 bg-blue-600/15 px-5 py-2 text-sm font-semibold text-blue-600 backdrop-blur-sm transition-colors hover:bg-blue-600/25 dark:border-blue-400/30 dark:bg-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500/20"
               >
                 ↓ CV (EN)
               </motion.a>
@@ -82,7 +82,7 @@ const Profile = ({ repos }: ProfileProps) => {
                 whileTap={{ scale: 0.95 }}
                 href="/cv_es.pdf"
                 download
-                className="inline-flex items-center gap-1.5 rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-blue-500/40 bg-blue-600/15 px-5 py-2 text-sm font-semibold text-blue-600 backdrop-blur-sm transition-colors hover:bg-blue-600/25 dark:border-blue-400/30 dark:bg-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500/20"
               >
                 ↓ CV (ES)
               </motion.a>
