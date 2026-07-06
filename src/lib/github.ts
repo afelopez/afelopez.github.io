@@ -8,6 +8,7 @@ export interface Repo {
   language: string;
   languages_url: string;
   languages?: Record<string, number>;
+  updated_at?: string;
 }
 
 export async function getRepositories(username: string): Promise<Repo[]> {
