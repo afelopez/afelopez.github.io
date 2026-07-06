@@ -72,49 +72,46 @@ export default function FeaturedProjects() {
               transition={{ duration: 0.28, ease: 'easeInOut' }}
               className="flex w-full min-h-[220px]"
             >
-              {/* ── Left: content ─────────────────────────────── */}
-              <div className="flex flex-1 min-w-0 flex-col justify-center gap-6 p-8 sm:flex-row sm:items-center">
-                {/* Counter */}
-                <div className="flex-shrink-0">
-                  <div className="flex h-20 w-28 items-center justify-center rounded-2xl bg-blue-600/10 text-4xl font-bold text-blue-600 dark:bg-blue-400/10 dark:text-blue-400 tracking-tight">
-                    {String(current + 1).padStart(2, '0')}
-                  </div>
+              {/* ── Left: number panel ────────────────────────── */}
+              <div className="flex w-24 flex-shrink-0 items-center justify-center border-r border-white/10 bg-blue-600/10 dark:bg-blue-400/10">
+                <span className="text-4xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                  {String(current + 1).padStart(2, '0')}
+                </span>
+              </div>
+
+              {/* ── Center: content ────────────────────────────── */}
+              <div className="flex flex-1 min-w-0 flex-col justify-center gap-4 p-8">
+                <h3 className="text-2xl font-bold">{project.name}</h3>
+                <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full bg-gray-100 dark:bg-gray-800 px-3 py-1 text-xs font-medium text-gray-700 dark:text-gray-300"
+                    >
+                      {t}
+                    </span>
+                  ))}
                 </div>
 
-                {/* Text + links */}
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-2xl font-bold">{project.name}</h3>
-                  <p className="mt-2 text-gray-500 dark:text-gray-400 leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full bg-gray-100 dark:bg-gray-800 px-3 py-1 text-xs font-medium text-gray-700 dark:text-gray-300"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {project.links.map((link) => (
-                      <a
-                        key={link.url}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
-                          LINK_STYLES[link.type] ?? LINK_STYLES.github
-                        }`}
-                      >
-                        <span>{LINK_ICONS[link.type]}</span>
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
+                <div className="flex flex-wrap gap-2">
+                  {project.links.map((link) => (
+                    <a
+                      key={link.url}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                        LINK_STYLES[link.type] ?? LINK_STYLES.github
+                      }`}
+                    >
+                      <span>{LINK_ICONS[link.type]}</span>
+                      {link.label}
+                    </a>
+                  ))}
                 </div>
               </div>
 
