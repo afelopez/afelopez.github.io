@@ -3,6 +3,8 @@
 /* Enable class-based dark mode (Tailwind v4) */
 @custom-variant dark (&:is(.dark *));
 
+html { scroll-behavior: smooth; }
+
 /* ============================================================
    CSS variables — change on :root (light) and .dark override
    ============================================================ */
