@@ -1,25 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Tailwind v4 Theme Extensions (replaces tailwind.config.js)
-   ============================================================ */
-@theme {
-  --animate-gradient-move: gradient-move 15s ease-in-out infinite alternate;
-  --animate-gradient-fade: gradient-fade 12s ease-in-out infinite;
-}
-
-@keyframes gradient-move {
-  0%   { transform: translate(0, 0); }
-  100% { transform: translate(-50%, -50%); }
-}
-
-@keyframes gradient-fade {
-  0%, 100% { opacity: 0.2; }
-  50%       { opacity: 0.5; }
-}
-
-/* ============================================================
-   Base — font applied by Inter via next/font, not here
+   Base
    ============================================================ */
 body {
   background: var(--background);
@@ -27,75 +9,48 @@ body {
 }
 
 /* ============================================================
-   Theme Variables — set via data-theme on <html>
+   Theme Variables
    ============================================================ */
 :root,
 [data-theme="sunset"] {
-  --background: #ffffff;
-  --foreground: #171717;
-  --gradient-start: #f97316;
-  --gradient-mid:   #ec4899;
-  --gradient-end:   #8b5cf6;
+  --background: #f8f8f8;
+  --foreground: #0f0f0f;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0d0d0d;
+    --foreground: #f0f0f0;
   }
 }
 
-[data-theme="ocean"] {
-  --gradient-start: #06b6d4;
-  --gradient-mid:   #3b82f6;
-  --gradient-end:   #6366f1;
-}
-
-[data-theme="forest"] {
-  --gradient-start: #10b981;
-  --gradient-mid:   #14b8a6;
-  --gradient-end:   #84cc16;
-}
-
-[data-theme="midnight"] {
-  --gradient-start: #1e1b4b;
-  --gradient-mid:   #4c1d95;
-  --gradient-end:   #7c3aed;
-}
-
-[data-theme="mono"] {
-  --gradient-start: #9ca3af;
-  --gradient-mid:   #6b7280;
-  --gradient-end:   #71717a;
-}
-
 /* ============================================================
-   Glass utility — real-glass effect for cards and navbar
+   Glass utility — high contrast real-glass
    ============================================================ */
 .glass {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.30) 0%,
-    rgba(255, 255, 255, 0.12) 100%
+    rgba(255, 255, 255, 0.52) 0%,
+    rgba(255, 255, 255, 0.28) 100%
   );
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.60);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.72);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.10),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    inset 1px 0 0 rgba(255, 255, 255, 0.55);
+    0 4px 24px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 1px 0 0 rgba(255, 255, 255, 0.65);
 }
 
 .dark .glass {
   background: linear-gradient(
     135deg,
-    rgba(20, 20, 30, 0.45) 0%,
-    rgba(20, 20, 30, 0.25) 100%
+    rgba(15, 15, 20, 0.65) 0%,
+    rgba(15, 15, 20, 0.40) 100%
   );
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    inset 1px 0 0 rgba(255, 255, 255, 0.10);
+    0 4px 24px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 1px 0 0 rgba(255, 255, 255, 0.12);
 }
