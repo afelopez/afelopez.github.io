@@ -35,4 +35,40 @@ export const projects: Project[] = [
     logo: '/projects/vet-scheduler-logo.png',
     brandColor: '#0e1830',
   },
+  {
+    id: 'ratopro',
+    name: 'ratopro',
+    description: 'A simple todo list to practice React.',
+    tech: ['React', 'JavaScript', 'HTML', 'CSS'],
+    links: [
+      {
+        label: 'Live Demo',
+        url: 'https://afelopez.github.io/ratopro/',
+        type: 'frontend',
+      },
+      {
+        label: 'GitHub',
+        url: 'https://github.com/afelopez/ratopro',
+        type: 'github',
+      },
+    ],
+  },
+  {
+    id: 'e-commerce-template',
+    name: 'e-commerce-template',
+    description: 'A simple e-commerce template to practice React and Vite.',
+    tech: ['React', 'Vite', 'HTML', 'CSS'],
+    links: [
+      {
+        label: 'Live Demo',
+        url: 'https://afelopez.github.io/e-commerce-template/',
+        type: 'frontend',
+      },
+      {
+        label: 'GitHub',
+        url: 'https://github.com/afelopez/e-commerce-template',
+        type: 'github',
+      },
+    ],
+  },
 ];
