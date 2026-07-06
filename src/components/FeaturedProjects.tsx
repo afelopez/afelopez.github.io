@@ -18,9 +18,9 @@ const LINK_ICONS: Record<string, string> = {
 };
 
 const slideVariants = {
-  enter: (d: number) => ({ x: d > 0 ? 140 : -140, opacity: 0 }),
+  enter: (d: number) => ({ x: d > 0 ? 160 : -160, opacity: 0 }),
   center: { x: 0, opacity: 1 },
-  exit:  (d: number) => ({ x: d > 0 ? -140 : 140, opacity: 0 }),
+  exit:  (d: number) => ({ x: d > 0 ? -160 : 160, opacity: 0 }),
 };
 
 export default function FeaturedProjects() {
@@ -69,37 +69,13 @@ export default function FeaturedProjects() {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.26, ease: 'easeInOut' }}
-              className="relative"
-              style={{ minHeight: '240px' }}
+              transition={{ duration: 0.28, ease: 'easeInOut' }}
+              className="flex w-full min-h-[220px]"
             >
-              {/* Background image — right side, fades left */}
-              {project.image && (
-                <div className="absolute inset-y-0 right-0 w-[58%] overflow-hidden pointer-events-none select-none">
-                  <img
-                    src={project.image}
-                    alt={project.name}
-                    className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.06]"
-                  />
-                  {/* Gradient: glass color on left → transparent on right */}
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        'linear-gradient(to right, var(--glass-bg) 0%, var(--glass-bg) 15%, color-mix(in srgb, var(--glass-bg) 60%, transparent) 45%, transparent 75%)',
-                    }}
-                  />
-                </div>
-              )}
-
-              {/* Content */}
-              <div
-                className={`relative z-10 flex flex-col gap-6 p-8 sm:flex-row sm:items-start ${
-                  project.image ? 'sm:w-[60%]' : 'w-full'
-                }`}
-              >
+              {/* ── Left: content ─────────────────────────────── */}
+              <div className="flex flex-1 min-w-0 flex-col justify-center gap-6 p-8 sm:flex-row sm:items-center">
                 {/* Counter */}
-                <div className="flex-shrink-0 self-start sm:pt-1">
+                <div className="flex-shrink-0">
                   <span className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-600/10 text-xl font-bold text-blue-600 dark:bg-blue-400/10 dark:text-blue-400">
                     {String(current + 1).padStart(2, '0')}
                   </span>
@@ -108,9 +84,10 @@ export default function FeaturedProjects() {
                 {/* Text + links */}
                 <div className="flex-1 min-w-0">
                   <h3 className="text-2xl font-bold">{project.name}</h3>
-                  <p className="mt-2 text-gray-500 dark:text-gray-400">{project.description}</p>
+                  <p className="mt-2 text-gray-500 dark:text-gray-400 leading-relaxed">
+                    {project.description}
+                  </p>
 
-                  {/* Tech tags */}
                   <div className="mt-4 flex flex-wrap gap-2">
                     {project.tech.map((t) => (
                       <span
@@ -122,7 +99,6 @@ export default function FeaturedProjects() {
                     ))}
                   </div>
 
-                  {/* Action links */}
                   <div className="mt-5 flex flex-wrap gap-2">
                     {project.links.map((link) => (
                       <a
@@ -141,6 +117,20 @@ export default function FeaturedProjects() {
                   </div>
                 </div>
               </div>
+
+              {/* ── Right: logo panel ──────────────────────────── */}
+              {project.logo && (
+                <div
+                  className="hidden sm:flex w-64 lg:w-72 flex-shrink-0 items-center justify-center p-10 border-l border-white/10"
+                  style={{ backgroundColor: project.brandColor ?? '#111827' }}
+                >
+                  <img
+                    src={project.logo}
+                    alt={`${project.name} logo`}
+                    className="max-h-36 w-auto object-contain drop-shadow-2xl transition-transform duration-500 ease-out group-hover:scale-110"
+                  />
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>

@@ -12,24 +12,27 @@ export interface Project {
   description: string;
   tech: string[];
   links: ProjectLink[];
-  image?: string; // path relative to /public, e.g. '/projects/foo.png'
+  /** Logo mark path relative to /public, e.g. '/projects/foo-logo.png' */
+  logo?: string;
+  /** Panel background color — use the brand's primary dark color */
+  brandColor?: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Add your deployed projects here.
-// Each entry should have at least one link that points to a live environment
-// (frontend URL, Swagger docs, public API, etc.).
+// Each entry should have at least one link to a live environment.
 // ─────────────────────────────────────────────────────────────────────────────
 export const projects: Project[] = [
   {
     id: 'vet-scheduler',
-    name: 'Vet Scheduler',
+    name: 'ExcelsiorVet',
     description:
-      'Appointment scheduling platform for veterinary clinics — manages patients, owners, and bookings with an intuitive calendar interface.',
+      'Veterinary diagnostic imaging platform — radiology, ultrasound, echocardiography and MRI, interpreted by certified specialists and delivered in hours.',
     tech: ['Ruby on Rails', 'PostgreSQL', 'Railway'],
     links: [
       { label: 'Live App', url: 'https://excelsiorvet.up.railway.app/', type: 'frontend' },
     ],
-    image: '/projects/vet-scheduler.png',
+    logo: '/projects/vet-scheduler-logo.png',
+    brandColor: '#0e1830',
   },
 ];
