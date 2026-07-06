@@ -29,7 +29,7 @@ export default function FeaturedProjects() {
 
   if (projects.length === 0) {
     return (
-      <section className="mx-auto mb-16 max-w-screen-xl px-4 sm:px-6 lg:px-8">
+      <section id="projects" className="mx-auto mb-16 max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <h2 className="mb-6 text-center text-3xl font-bold">Projects</h2>
         <div className="glass rounded-2xl p-12 text-center text-gray-500 dark:text-gray-400">
           <p className="text-lg font-medium">No projects listed yet.</p>
@@ -56,7 +56,7 @@ export default function FeaturedProjects() {
   const numLabel = String(current + 1).padStart(2, '0');
 
   return (
-    <section className="mx-auto mb-16 max-w-screen-xl px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="mx-auto mb-16 max-w-screen-xl px-4 sm:px-6 lg:px-8">
       <h2 className="mb-8 text-center text-3xl font-bold">Projects</h2>
 
       {/* ── Floating arrows (desktop only) ───────────────────────── */}

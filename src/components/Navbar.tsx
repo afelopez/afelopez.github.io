@@ -8,6 +8,7 @@ import ModeToggle from './ModeToggle';
 
 const navItems = [
   { name: 'Home', href: '/' },
+  { name: 'Projects', href: '/#projects' },
   { name: 'Repositories', href: '/repositories' },
 ];
 
@@ -39,12 +40,12 @@ const Navbar = () => {
             key={item.name}
             href={item.href}
             className={`relative rounded-full px-4 py-2 text-sm font-semibold tracking-wide transition-colors ${
-              pathname === item.href
+              !item.href.includes('#') && pathname === item.href
                 ? 'text-gray-900 dark:text-white'
                 : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
             }`}
           >
-            {item.href === pathname && (
+            {!item.href.includes('#') && item.href === pathname && (
               <motion.span
                 layoutId="underline"
                 className="absolute inset-0 -z-10 rounded-full bg-white/60 dark:bg-gray-800/60"
