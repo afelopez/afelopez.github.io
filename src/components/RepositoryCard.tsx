@@ -37,14 +37,22 @@ export default function RepositoryCard({ repo, index }: { repo: Repo, index: num
           ))}
         </div>
         <div className="flex items-center gap-3">
+          <a
+              href={repo.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-blue-500/40 bg-blue-600/15 px-5 py-2 text-sm font-semibold text-blue-600 backdrop-blur-sm transition-colors hover:bg-blue-600/25 dark:border-blue-400/30 dark:bg-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500/20"
+            >
+             Github
+            </a>
           {pagesUrl && (
             <a
               href={pagesUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-lg border border-blue-500/40 bg-blue-600/15 px-2.5 py-1 text-xs font-semibold text-blue-600 backdrop-blur-sm transition-colors hover:bg-blue-600/25 dark:border-blue-400/30 dark:bg-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500/20"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-blue-500/40 bg-blue-600/15 px-5 py-2 text-sm font-semibold text-blue-600 backdrop-blur-sm transition-colors hover:bg-blue-600/25 dark:border-blue-400/30 dark:bg-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500/20"
             >
-              ↗ Pages
+              Live Demo
             </a>
           )}
           <span>⭐ {repo.stargazers_count}</span>
