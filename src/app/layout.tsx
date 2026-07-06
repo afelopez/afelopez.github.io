@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import AnimatedGradientBackground from "@/components/AnimatedGradientBackground";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-transparent text-gray-900 dark:text-gray-100`}>
-        <AnimatedGradientBackground />
-        <Navbar />
-        <main className="pt-20">{children}</main>
+        <ThemeProvider>
+          <AnimatedGradientBackground />
+          <Navbar />
+          <main className="pt-20">{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );

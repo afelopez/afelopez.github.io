@@ -44,7 +44,7 @@ const Profile = ({ repos }: ProfileProps) => {
       transition={{ duration: 0.8 }}
       className="my-12 mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8"
     >
-      <div className="bg-white/30 dark:bg-gray-900/30 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-white/40 dark:border-gray-700/40">
+      <div className="glass rounded-2xl p-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {/* Left Column: Profile Info */}
           <div className="md:col-span-1 flex flex-col items-center text-center">
