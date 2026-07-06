@@ -95,14 +95,14 @@ export default function FeaturedProjects() {
             >
               {/* ── MOBILE: logo panel stacked on top ──────────────── */}
               <div
-                className="relative flex sm:hidden h-44 w-full items-center justify-center"
+                className="relative flex sm:hidden h-44 w-full items-center justify-end pr-6"
                 style={{ backgroundColor: project.logo ? (project.brandColor ?? '#111827') : undefined }}
               >
                 {project.logo ? (
                   <img
                     src={project.logo}
                     alt={`${project.name} logo`}
-                    className="max-h-28 w-auto object-contain drop-shadow-2xl transition-transform duration-500 ease-out group-hover:scale-110"
+                    className="max-h-20 w-auto object-contain drop-shadow-2xl transition-transform duration-500 ease-out group-hover:scale-110"
                   />
                 ) : (
                   <span className="text-5xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
