@@ -67,12 +67,24 @@ const Profile = ({ repos }: ProfileProps) => {
               <p><a href="https://linkedin.com/in/afelopez" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">linkedin.com/in/afelopez</a></p>
               <p>(+34) 644 980 908</p>
             </div>
-            <div className="flex gap-4 mt-6">
-              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/cv_en.pdf" download className="bg-blue-600 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 transition-colors shadow-md text-xs">
-                CV (EN)
+            <div className="flex gap-3 mt-6">
+              <motion.a
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                href="/cv_en.pdf"
+                download
+                className="glass rounded-full px-5 py-2 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:opacity-80 transition-opacity"
+              >
+                ↓ CV (EN)
               </motion.a>
-              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/cv_es.pdf" download className="bg-green-600 text-white font-bold py-2 px-4 rounded-full hover:bg-green-700 transition-colors shadow-md text-xs">
-                CV (ES)
+              <motion.a
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                href="/cv_es.pdf"
+                download
+                className="glass rounded-full px-5 py-2 text-xs font-semibold hover:opacity-80 transition-opacity"
+              >
+                ↓ CV (ES)
               </motion.a>
             </div>
           </div>

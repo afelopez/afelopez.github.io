@@ -95,25 +95,18 @@ export default function FeaturedProjects() {
             >
               {/* ── MOBILE: logo panel stacked on top ──────────────── */}
               <div
-                className="relative flex sm:hidden h-44 w-full items-center justify-end pr-6"
+                className="flex sm:hidden h-44 w-full items-center justify-between px-7"
                 style={{ backgroundColor: project.logo ? (project.brandColor ?? '#111827') : undefined }}
               >
-                {project.logo ? (
+                <span className="text-5xl font-bold tracking-tight text-white/50 select-none">
+                  {numLabel}
+                </span>
+                {project.logo && (
                   <img
                     src={project.logo}
                     alt={`${project.name} logo`}
                     className="max-h-20 w-auto object-contain drop-shadow-2xl transition-transform duration-500 ease-out group-hover:scale-110"
                   />
-                ) : (
-                  <span className="text-5xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
-                    {numLabel}
-                  </span>
-                )}
-                {/* Number overlay — shown only when there's a logo */}
-                {project.logo && (
-                  <span className="absolute top-3 left-4 text-3xl font-bold tracking-tight text-white/30 select-none">
-                    {numLabel}
-                  </span>
                 )}
               </div>
 
