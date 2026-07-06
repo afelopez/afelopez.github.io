@@ -7,7 +7,7 @@ export default async function Home() {
   return (
     <>
       <Profile repos={repos} />
-      <FeaturedProjects repos={repos} />
+      <FeaturedProjects />
     </>
   );
 }
