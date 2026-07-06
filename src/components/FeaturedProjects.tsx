@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projects } from '@/data/projects';
 
@@ -26,6 +26,16 @@ const slideVariants = {
 export default function FeaturedProjects() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
+
+  // Auto-advance carousel every 5 seconds (resets on manual navigation)
+  useEffect(() => {
+    if (projects.length <= 1) return;
+    const interval = setInterval(() => {
+      setDirection(1);
+      setCurrent((prev) => (prev + 1) % projects.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [current]);
 
   if (projects.length === 0) {
     return (
@@ -59,30 +69,30 @@ export default function FeaturedProjects() {
     <section id="projects" className="mx-auto mb-16 max-w-screen-xl px-4 sm:px-6 lg:px-8">
       <h2 className="mb-8 text-center text-3xl font-bold">Projects</h2>
 
-      {/* ── Floating arrows (desktop only) ───────────────────────── */}
-      <div className="relative">
+      {/* ── Card with integrated arrows ──────────────────────────── */}
+      <div className="glass overflow-hidden rounded-2xl group relative">
         {projects.length > 1 && (
           <>
+            {/* Left gradient overlay with arrow */}
             <button
               onClick={prev}
               aria-label="Previous project"
-              className="hidden sm:flex absolute -left-4 top-1/2 -translate-y-1/2 z-10 h-9 w-9 items-center justify-center rounded-full glass text-lg text-gray-600 dark:text-gray-300 transition-opacity hover:opacity-70 shadow-md"
+              className="hidden sm:flex absolute left-0 top-0 bottom-0 w-20 z-20 items-center justify-start pl-4 bg-gradient-to-r from-gray-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             >
-              ‹
+              <span className="text-3xl text-white drop-shadow-lg">‹</span>
             </button>
+            {/* Right gradient overlay with arrow */}
             <button
               onClick={next}
               aria-label="Next project"
-              className="hidden sm:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 h-9 w-9 items-center justify-center rounded-full glass text-lg text-gray-600 dark:text-gray-300 transition-opacity hover:opacity-70 shadow-md"
+              className="hidden sm:flex absolute right-0 top-0 bottom-0 w-20 z-20 items-center justify-end pr-4 bg-gradient-to-l from-gray-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             >
-              ›
+              <span className="text-3xl text-white drop-shadow-lg">›</span>
             </button>
           </>
         )}
 
-        {/* ── Card ─────────────────────────────────────────────────── */}
-        <div className="glass overflow-hidden rounded-2xl group">
-          <AnimatePresence mode="wait" custom={direction}>
+        <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={project.id}
               custom={direction}
@@ -166,7 +176,6 @@ export default function FeaturedProjects() {
               )}
             </motion.div>
           </AnimatePresence>
-        </div>
       </div>
 
       {/* ── Navigation dots + mobile arrows ───────────────────────── */}
