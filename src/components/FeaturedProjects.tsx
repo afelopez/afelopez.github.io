@@ -30,7 +30,7 @@ export default function FeaturedProjects() {
   if (projects.length === 0) {
     return (
       <section className="mx-auto mb-16 max-w-screen-xl px-4 sm:px-6 lg:px-8">
-        <h2 className="mb-6 text-center text-3xl font-bold">Production Projects</h2>
+        <h2 className="mb-6 text-center text-3xl font-bold">Projects</h2>
         <div className="glass rounded-2xl p-12 text-center text-gray-500 dark:text-gray-400">
           <p className="text-lg font-medium">No projects listed yet.</p>
           <p className="mt-1 text-sm">
@@ -53,13 +53,34 @@ export default function FeaturedProjects() {
   const next = () => go((current + 1) % projects.length);
 
   const project = projects[current];
+  const numLabel = String(current + 1).padStart(2, '0');
 
   return (
     <section className="mx-auto mb-16 max-w-screen-xl px-4 sm:px-6 lg:px-8">
-      <h2 className="mb-8 text-center text-3xl font-bold">Production Projects</h2>
+      <h2 className="mb-8 text-center text-3xl font-bold">Projects</h2>
 
+      {/* ── Floating arrows (desktop only) ───────────────────────── */}
       <div className="relative">
-        {/* Card */}
+        {projects.length > 1 && (
+          <>
+            <button
+              onClick={prev}
+              aria-label="Previous project"
+              className="hidden sm:flex absolute -left-4 top-1/2 -translate-y-1/2 z-10 h-9 w-9 items-center justify-center rounded-full glass text-lg text-gray-600 dark:text-gray-300 transition-opacity hover:opacity-70 shadow-md"
+            >
+              ‹
+            </button>
+            <button
+              onClick={next}
+              aria-label="Next project"
+              className="hidden sm:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 h-9 w-9 items-center justify-center rounded-full glass text-lg text-gray-600 dark:text-gray-300 transition-opacity hover:opacity-70 shadow-md"
+            >
+              ›
+            </button>
+          </>
+        )}
+
+        {/* ── Card ─────────────────────────────────────────────────── */}
         <div className="glass overflow-hidden rounded-2xl group">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
@@ -70,17 +91,41 @@ export default function FeaturedProjects() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.28, ease: 'easeInOut' }}
-              className="flex w-full min-h-[220px]"
+              className="flex flex-col sm:flex-row w-full sm:min-h-[220px]"
             >
-              {/* ── Left: number panel ────────────────────────── */}
-              <div className="flex w-24 flex-shrink-0 items-center justify-center border-r border-white/10 bg-blue-600/10 dark:bg-blue-400/10">
+              {/* ── MOBILE: logo panel stacked on top ──────────────── */}
+              <div
+                className="relative flex sm:hidden h-44 w-full items-center justify-center"
+                style={{ backgroundColor: project.logo ? (project.brandColor ?? '#111827') : undefined }}
+              >
+                {project.logo ? (
+                  <img
+                    src={project.logo}
+                    alt={`${project.name} logo`}
+                    className="max-h-28 w-auto object-contain drop-shadow-2xl transition-transform duration-500 ease-out group-hover:scale-110"
+                  />
+                ) : (
+                  <span className="text-5xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                    {numLabel}
+                  </span>
+                )}
+                {/* Number overlay — shown only when there's a logo */}
+                {project.logo && (
+                  <span className="absolute top-3 left-4 text-3xl font-bold tracking-tight text-white/30 select-none">
+                    {numLabel}
+                  </span>
+                )}
+              </div>
+
+              {/* ── DESKTOP: number panel (left column) ────────────── */}
+              <div className="hidden sm:flex w-24 flex-shrink-0 items-center justify-center border-r border-white/10 bg-blue-600/10 dark:bg-blue-400/10">
                 <span className="text-4xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
-                  {String(current + 1).padStart(2, '0')}
+                  {numLabel}
                 </span>
               </div>
 
-              {/* ── Center: content ────────────────────────────── */}
-              <div className="flex flex-1 min-w-0 flex-col justify-center gap-4 p-8">
+              {/* ── Center: content (always visible) ───────────────── */}
+              <div className="flex flex-1 min-w-0 flex-col justify-center gap-4 p-6 sm:p-8">
                 <h3 className="text-2xl font-bold">{project.name}</h3>
                 <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
                   {project.description}
@@ -115,7 +160,7 @@ export default function FeaturedProjects() {
                 </div>
               </div>
 
-              {/* ── Right: logo panel ──────────────────────────── */}
+              {/* ── DESKTOP: logo panel (right column) ─────────────── */}
               {project.logo && (
                 <div
                   className="hidden sm:flex w-64 lg:w-72 flex-shrink-0 items-center justify-center p-10 border-l border-white/10"
@@ -131,43 +176,44 @@ export default function FeaturedProjects() {
             </motion.div>
           </AnimatePresence>
         </div>
-
-        {/* Prev / Next */}
-        {projects.length > 1 && (
-          <>
-            <button
-              onClick={prev}
-              aria-label="Previous project"
-              className="absolute -left-4 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full glass text-lg text-gray-600 dark:text-gray-300 transition-opacity hover:opacity-70 shadow-md"
-            >
-              ‹
-            </button>
-            <button
-              onClick={next}
-              aria-label="Next project"
-              className="absolute -right-4 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full glass text-lg text-gray-600 dark:text-gray-300 transition-opacity hover:opacity-70 shadow-md"
-            >
-              ›
-            </button>
-          </>
-        )}
       </div>
 
-      {/* Dots */}
+      {/* ── Navigation dots + mobile arrows ───────────────────────── */}
       {projects.length > 1 && (
-        <div className="mt-5 flex justify-center gap-2">
-          {projects.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => go(i)}
-              aria-label={`Go to project ${i + 1}`}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                i === current
-                  ? 'w-6 bg-blue-600 dark:bg-blue-400'
-                  : 'w-2 bg-gray-300 dark:bg-gray-600'
-              }`}
-            />
-          ))}
+        <div className="mt-5 flex items-center justify-center gap-3">
+          {/* Prev arrow — mobile only */}
+          <button
+            onClick={prev}
+            aria-label="Previous project"
+            className="flex sm:hidden h-8 w-8 items-center justify-center rounded-full glass text-gray-600 dark:text-gray-300 text-lg transition-opacity hover:opacity-70"
+          >
+            ‹
+          </button>
+
+          {/* Dots */}
+          <div className="flex gap-2">
+            {projects.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => go(i)}
+                aria-label={`Go to project ${i + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  i === current
+                    ? 'w-6 bg-blue-600 dark:bg-blue-400'
+                    : 'w-2 bg-gray-300 dark:bg-gray-600'
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Next arrow — mobile only */}
+          <button
+            onClick={next}
+            aria-label="Next project"
+            className="flex sm:hidden h-8 w-8 items-center justify-center rounded-full glass text-gray-600 dark:text-gray-300 text-lg transition-opacity hover:opacity-70"
+          >
+            ›
+          </button>
         </div>
       )}
     </section>
