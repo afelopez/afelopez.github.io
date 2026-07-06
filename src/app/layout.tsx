@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import NodeBackground from "@/components/NodeBackground";
-import { ThemeProvider } from "@/context/ThemeContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,12 +21,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-transparent text-gray-900 dark:text-gray-100`}>
-        <ThemeProvider>
-          <NodeBackground />
-          <Navbar />
-          <main className="pt-20">{children}</main>
-        </ThemeProvider>
+      <body className={`${inter.className} text-gray-900 dark:text-gray-100`}>
+        <NodeBackground />
+        <Navbar />
+        <main className="pt-20">{children}</main>
       </body>
     </html>
   );
