@@ -11,7 +11,7 @@ export default function RepositoryCard({ repo, index }: { repo: Repo, index: num
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 * index }}
       whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(0,0,0,0.1)" }}
-      className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-xl border border-white/40 dark:border-gray-700/40 rounded-lg p-6 flex flex-col justify-between shadow-2xl"
+      className="glass rounded-xl p-6 flex flex-col justify-between"
     >
       <div>
         <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="group">
