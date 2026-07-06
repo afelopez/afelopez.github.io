@@ -73,7 +73,7 @@ const Profile = ({ repos }: ProfileProps) => {
                 whileTap={{ scale: 0.95 }}
                 href="/cv_en.pdf"
                 download
-                className="glass rounded-full px-5 py-2 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:opacity-80 transition-opacity"
+                className="inline-flex items-center gap-1.5 rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
               >
                 ↓ CV (EN)
               </motion.a>
@@ -82,7 +82,7 @@ const Profile = ({ repos }: ProfileProps) => {
                 whileTap={{ scale: 0.95 }}
                 href="/cv_es.pdf"
                 download
-                className="glass rounded-full px-5 py-2 text-xs font-semibold hover:opacity-80 transition-opacity"
+                className="inline-flex items-center gap-1.5 rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
               >
                 ↓ CV (ES)
               </motion.a>
