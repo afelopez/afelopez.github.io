@@ -54,7 +54,9 @@ const Navbar = () => {
             {item.name}
           </Link>
         ))}
-        <ModeToggle />
+        <div className="ml-2">
+          <ModeToggle />
+        </div>
       </div>
     </motion.nav>
   );
