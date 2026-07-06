@@ -76,9 +76,9 @@ export default function FeaturedProjects() {
               <div className="flex flex-1 min-w-0 flex-col justify-center gap-6 p-8 sm:flex-row sm:items-center">
                 {/* Counter */}
                 <div className="flex-shrink-0">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-600/10 text-xl font-bold text-blue-600 dark:bg-blue-400/10 dark:text-blue-400">
+                  <div className="flex h-20 w-28 items-center justify-center rounded-2xl bg-blue-600/10 text-4xl font-bold text-blue-600 dark:bg-blue-400/10 dark:text-blue-400 tracking-tight">
                     {String(current + 1).padStart(2, '0')}
-                  </span>
+                  </div>
                 </div>
 
                 {/* Text + links */}
