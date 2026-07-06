@@ -8,25 +8,26 @@ interface Node {
   vy: number;
 }
 
-const NODE_COUNT = 75;
-const CONNECT_DIST = 140;
+const NODE_COUNT = 70;
+const CONNECT_DIST = 150;
 const MOUSE_RADIUS = 130;
-const BASE_SPEED = 0.25;
+const BASE_SPEED = 0.28;
 
-const THEME_COLORS: Record<string, { node: string; line: string }> = {
-  sunset:   { node: '249,115,22',  line: '249,115,22'  },
-  ocean:    { node: '59,130,246',  line: '59,130,246'  },
-  forest:   { node: '16,185,129',  line: '16,185,129'  },
-  midnight: { node: '124,58,237',  line: '124,58,237'  },
-  mono:     { node: '107,114,128', line: '107,114,128' },
-};
+// Gradient palettes — random on mount
+const PALETTES: Array<[number[], number[]]> = [
+  [[249, 115, 22],  [168, 85, 247]],   // orange → purple
+  [[6, 182, 212],   [99, 102, 241]],   // cyan → indigo
+  [[16, 185, 129],  [132, 204, 22]],   // emerald → lime
+  [[236, 72, 153],  [139, 92, 246]],   // pink → violet
+  [[20, 184, 166],  [59, 130, 246]],   // teal → blue
+];
 
-function getTheme(): string {
-  return document.documentElement.getAttribute('data-theme') ?? 'sunset';
-}
-
-function isDarkMode(): boolean {
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+function lerp3(a: number[], b: number[], t: number): [number, number, number] {
+  return [
+    Math.round(a[0] + (b[0] - a[0]) * t),
+    Math.round(a[1] + (b[1] - a[1]) * t),
+    Math.round(a[2] + (b[2] - a[2]) * t),
+  ];
 }
 
 export default function NodeBackground() {
@@ -38,6 +39,7 @@ export default function NodeBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    const [c1, c2] = PALETTES[Math.floor(Math.random() * PALETTES.length)];
     let rafId = 0;
     const mouse = { x: -9999, y: -9999 };
 
@@ -63,52 +65,57 @@ export default function NodeBackground() {
 
     const draw = () => {
       const { width: w, height: h } = canvas;
-      const dark = isDarkMode();
-      const theme = getTheme();
-      const colors = THEME_COLORS[theme] ?? THEME_COLORS.sunset;
+      const dark = document.documentElement.classList.contains('dark');
 
       ctx.clearRect(0, 0, w, h);
 
-      // Update positions
       for (const n of nodes) {
         const dx = n.x - mouse.x;
         const dy = n.y - mouse.y;
         const d = Math.sqrt(dx * dx + dy * dy);
-
         if (d < MOUSE_RADIUS && d > 0) {
-          const force = ((MOUSE_RADIUS - d) / MOUSE_RADIUS) * 0.35;
+          const force = ((MOUSE_RADIUS - d) / MOUSE_RADIUS) * 0.32;
           n.vx += (dx / d) * force;
           n.vy += (dy / d) * force;
         }
-
         n.vx *= 0.97;
         n.vy *= 0.97;
-
         const spd = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
         if (spd > BASE_SPEED * 3) {
           n.vx = (n.vx / spd) * BASE_SPEED * 3;
           n.vy = (n.vy / spd) * BASE_SPEED * 3;
         }
-
-        n.x += n.vx;
-        n.y += n.vy;
-
+        n.x += n.vx; n.y += n.vy;
         if (n.x < 0) { n.x = 0; n.vx *= -1; }
         if (n.x > w) { n.x = w; n.vx *= -1; }
         if (n.y < 0) { n.y = 0; n.vy *= -1; }
         if (n.y > h) { n.y = h; n.vy *= -1; }
       }
 
-      // Draw connections
+      // Color each node by diagonal position — creates gradient across canvas
+      const nodeColors = nodes.map(n =>
+        lerp3(c1, c2, (n.x / w) * 0.55 + (n.y / h) * 0.45)
+      );
+
+      const lineAlpha = dark ? 0.24 : 0.16;
+      const nodeAlpha = dark ? 0.65 : 0.50;
+
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].x - nodes[j].x;
           const dy = nodes[i].y - nodes[j].y;
           const d = Math.sqrt(dx * dx + dy * dy);
           if (d < CONNECT_DIST) {
-            const a = (1 - d / CONNECT_DIST) * (dark ? 0.18 : 0.12);
+            const a = (1 - d / CONNECT_DIST) * lineAlpha;
+            const [r1, g1, b1] = nodeColors[i];
+            const [r2, g2, b2] = nodeColors[j];
+            const grad = ctx.createLinearGradient(
+              nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y
+            );
+            grad.addColorStop(0, `rgba(${r1},${g1},${b1},${a})`);
+            grad.addColorStop(1, `rgba(${r2},${g2},${b2},${a})`);
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(${colors.line},${a})`;
+            ctx.strokeStyle = grad;
             ctx.lineWidth = 1;
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -117,12 +124,11 @@ export default function NodeBackground() {
         }
       }
 
-      // Draw nodes
-      const nodeAlpha = dark ? 0.45 : 0.35;
-      for (const n of nodes) {
+      for (let i = 0; i < nodes.length; i++) {
+        const [r, g, b] = nodeColors[i];
         ctx.beginPath();
-        ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${colors.node},${nodeAlpha})`;
+        ctx.arc(nodes[i].x, nodes[i].y, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${r},${g},${b},${nodeAlpha})`;
         ctx.fill();
       }
 
