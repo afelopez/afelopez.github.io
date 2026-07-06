@@ -12,6 +12,7 @@ export interface Project {
   description: string;
   tech: string[];
   links: ProjectLink[];
+  image?: string; // path relative to /public, e.g. '/projects/foo.png'
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -29,5 +30,6 @@ export const projects: Project[] = [
     links: [
       { label: 'Live App', url: 'https://excelsiorvet.up.railway.app/', type: 'frontend' },
     ],
+    image: '/projects/vet-scheduler.png',
   },
 ];

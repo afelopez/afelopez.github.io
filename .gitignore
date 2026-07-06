@@ -43,3 +43,8 @@ next-env.d.ts
 # playwright / screenshots
 .playwright-mcp/
 *.png
+# allow intentional images in public/
+!/public/**/*.png
+!/public/**/*.jpg
+!/public/**/*.jpeg
+!/public/**/*.webp
