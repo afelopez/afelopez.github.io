@@ -101,7 +101,7 @@ export default function FeaturedProjects() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.28, ease: 'easeInOut' }}
-              className="flex flex-col sm:flex-row w-full h-[450px] sm:h-auto sm:min-h-[280px]"
+              className="flex flex-col sm:flex-row w-full h-[480px] sm:h-[320px]"
             >
               {/* ── MOBILE: logo panel stacked on top ──────────────── */}
               <div
@@ -130,7 +130,7 @@ export default function FeaturedProjects() {
               {/* ── Center: content (always visible) ───────────────── */}
               <div className="flex flex-1 min-w-0 flex-col justify-center gap-4 p-6 sm:p-8">
                 <h3 className="text-2xl font-bold">{project.name}</h3>
-                <p className="text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-3 sm:line-clamp-none">
+                <p className="text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-3">
                   {project.description}
                 </p>
 

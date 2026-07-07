@@ -39,8 +39,8 @@ export const projects: Project[] = [
     id: 'ratopro',
     name: 'RatoPro',
     description:
-      'Professional task manager with priority levels, due dates, smart sorting, and live search — built with React 19, TypeScript, and Tailwind CSS v4. Tasks persist across sessions via localStorage.',
-    tech: ['React 19', 'TypeScript', 'Tailwind CSS v4', 'Vite'],
+      'Professional task manager with priority levels, due dates, smart sorting, and live search.',
+    tech: ['React 19', 'TypeScript', 'Tailwind CSS', 'Vite'],
     links: [
       {
         label: 'Live Demo',
@@ -60,8 +60,8 @@ export const projects: Project[] = [
     id: 'e-commerce-template',
     name: 'FuncionArte',
     description:
-      'Full-featured e-commerce SPA — category filtering, slide-in product detail panel, cart, checkout flow, and order history. Powered by FakeStore API with React, React Router, and Tailwind CSS.',
-    tech: ['React', 'React Router', 'Tailwind CSS', 'Vite'],
+      'Full-featured e-commerce SPA — category filtering, slide-in product detail panel, cart, checkout flow, and order history.',
+    tech: ['React 19', 'React Router', 'Tailwind CSS', 'Vite'],
     links: [
       {
         label: 'Live Demo',
@@ -76,5 +76,27 @@ export const projects: Project[] = [
     ],
     logo: '/projects/funcion-arte-logo.svg',
     brandColor: '#071411',
+  },
+  {
+    id: 'cuentas-claras',
+    name: 'Cuentas Claras',
+    description:
+      'An online platform to manage our expenses and finances. It does not require registration, because you are not the product, the feature is.',
+    tech: [
+      'Vite',
+      'React.js',
+      'Vercel',
+      'Dexie.js',
+      'Tailwind CSS',
+    ],
+    links: [
+      {
+        label: 'Live App',
+        url: 'https://contabilizo.vercel.app/',
+        type: 'frontend',
+      },
+    ],
+    logo: '/projects/cuentas-claras-logo.png',
+    brandColor: '#111827',
   },
 ];
