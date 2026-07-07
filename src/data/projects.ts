@@ -58,9 +58,10 @@ export const projects: Project[] = [
   },
   {
     id: 'e-commerce-template',
-    name: 'e-commerce-template',
-    description: 'A simple e-commerce template to practice React and Vite.',
-    tech: ['React', 'Vite', 'HTML', 'CSS'],
+    name: 'FuncionArte',
+    description:
+      'Full-featured e-commerce SPA — category filtering, slide-in product detail panel, cart, checkout flow, and order history. Powered by FakeStore API with React, React Router, and Tailwind CSS.',
+    tech: ['React', 'React Router', 'Tailwind CSS', 'Vite'],
     links: [
       {
         label: 'Live Demo',
@@ -73,5 +74,7 @@ export const projects: Project[] = [
         type: 'github',
       },
     ],
+    logo: '/projects/funcion-arte-logo.svg',
+    brandColor: '#071411',
   },
 ];

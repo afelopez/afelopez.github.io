@@ -1,0 +1,18 @@
+<svg viewBox="0 0 165 56" xmlns="http://www.w3.org/2000/svg">
+  <!-- Mark: teal rounded square, scaled from app logo -->
+  <rect x="0" y="4" width="48" height="48" rx="11" fill="#0f766e"/>
+  <!-- Function bracket left -->
+  <path d="M14 15 L10 15 L10 41 L14 41" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Function bracket right -->
+  <path d="M34 15 L38 15 L38 41 L34 41" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Artistic X -->
+  <line x1="18" y1="20" x2="30" y2="36" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="30" y1="20" x2="18" y2="36" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Orbit ring -->
+  <ellipse cx="24" cy="28" rx="6.5" ry="6.5" stroke="white" stroke-width="1.5" fill="none" stroke-opacity="0.45"/>
+  <!-- Vertical rule -->
+  <line x1="64" y1="8" x2="64" y2="48" stroke="#0f766e" stroke-width="1" stroke-opacity="0.4"/>
+  <!-- Wordmark -->
+  <text x="76" y="26" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="15" letter-spacing="2" fill="#ffffff">FUNCION</text>
+  <text x="76" y="46" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="15" letter-spacing="2" fill="#5eead4">ARTE</text>
+</svg>
