@@ -1,0 +1,13 @@
+<svg viewBox="0 0 155 56" xmlns="http://www.w3.org/2000/svg">
+  <!-- Geometric rat head: two ear circles + one head circle, pure fill -->
+  <circle cx="14" cy="14" r="9" fill="#7c3aed"/>
+  <circle cx="38" cy="14" r="9" fill="#7c3aed"/>
+  <circle cx="26" cy="32" r="19" fill="#7c3aed"/>
+  <!-- Checkmark inside head -->
+  <path d="M 17 32 L 24 40 L 38 19" stroke="white" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Thin vertical rule -->
+  <line x1="62" y1="8" x2="62" y2="48" stroke="#7c3aed" stroke-width="1" stroke-opacity="0.35"/>
+  <!-- Wordmark -->
+  <text x="74" y="27" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="17" letter-spacing="3" fill="#ffffff">RATO</text>
+  <text x="74" y="47" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="17" letter-spacing="3" fill="#a78bfa">PRO</text>
+</svg>

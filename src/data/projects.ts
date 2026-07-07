@@ -37,9 +37,10 @@ export const projects: Project[] = [
   },
   {
     id: 'ratopro',
-    name: 'ratopro',
-    description: 'A simple todo list to practice React.',
-    tech: ['React', 'JavaScript', 'HTML', 'CSS'],
+    name: 'RatoPro',
+    description:
+      'Professional task manager with priority levels, due dates, smart sorting, and live search — built with React 19, TypeScript, and Tailwind CSS v4. Tasks persist across sessions via localStorage.',
+    tech: ['React 19', 'TypeScript', 'Tailwind CSS v4', 'Vite'],
     links: [
       {
         label: 'Live Demo',
@@ -52,6 +53,8 @@ export const projects: Project[] = [
         type: 'github',
       },
     ],
+    logo: '/projects/ratopro-logo.svg',
+    brandColor: '#0f1117',
   },
   {
     id: 'e-commerce-template',
