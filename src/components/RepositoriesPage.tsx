@@ -61,7 +61,8 @@ export default function RepositoriesPage({ repos }: { repos: Repo[] }) {
       <div className="mb-10 text-center">
         <h1 className="text-4xl font-bold">Repositories</h1>
         <p className="mt-2 text-gray-500 dark:text-gray-400">
-          {repos.length} public repos · {filtered.length} shown
+          {repos.length} public repos
+          {filtered.length !== repos.length && ` · ${filtered.length} shown`}
         </p>
       </div>
 

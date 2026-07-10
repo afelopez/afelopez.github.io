@@ -64,7 +64,8 @@ export default function CertificatesPage({ certificates }: { certificates: Certi
       <div className="mb-10 text-center">
         <h1 className="text-4xl font-bold">Certificates</h1>
         <p className="mt-2 text-gray-500 dark:text-gray-400">
-          {certificates.length} certificates · {filtered.length} shown
+          {certificates.length} certificates
+          {filtered.length !== certificates.length && ` · ${filtered.length} shown`}
         </p>
       </div>
 
