@@ -10,6 +10,7 @@ const navItems = [
   { name: 'Home', href: '/' },
   { name: 'Projects', href: '/#projects' },
   { name: 'Repositories', href: '/repositories' },
+  { name: 'Certificates', href: '/certificates' },
 ];
 
 const Navbar = () => {
