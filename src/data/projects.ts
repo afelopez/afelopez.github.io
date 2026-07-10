@@ -92,7 +92,7 @@ export const projects: Project[] = [
     links: [
       {
         label: 'Live App',
-        url: 'https://contabilizo.vercel.app/',
+        url: 'https://cuentasclaras.pro/',
         type: 'frontend',
       },
     ],
