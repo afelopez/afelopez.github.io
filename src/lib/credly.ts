@@ -24,15 +24,17 @@ export async function getCredlyBadges(username: string): Promise<Certificate[]> 
     }
     const { data }: CredlyResponse = await res.json();
 
-    return data.map((badge) => ({
-      id: badge.id,
-      title: badge.badge_template.name,
-      issuer: (badge.issuer?.summary ?? 'Credly').replace(/^issued by\s+/i, ''),
-      provider: 'credly',
-      date: badge.issued_at_date,
-      url: `https://www.credly.com/badges/${badge.id}`,
-      image: badge.badge_template.image?.url,
-    }));
+    return data
+      .filter((badge) => badge?.id && badge?.badge_template?.name)
+      .map((badge) => ({
+        id: badge.id,
+        title: badge.badge_template.name,
+        issuer: (badge.issuer?.summary ?? 'Credly').replace(/^issued by\s+/i, ''),
+        provider: 'credly',
+        date: badge.issued_at_date,
+        url: `https://www.credly.com/badges/${badge.id}`,
+        image: badge.badge_template.image?.url,
+      }));
   } catch (err) {
     console.warn(`[certificates] Failed to fetch Credly badges for "${username}":`, err);
     return [];

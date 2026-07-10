@@ -34,15 +34,17 @@ export async function getPlatziDiplomas(username: string): Promise<Certificate[]
     }
     const { data }: PlatziResponse = await res.json();
 
-    return data.courses.map((course) => ({
-      id: `platzi-${course.id}`,
-      title: course.title,
-      issuer: 'Platzi',
-      provider: 'platzi',
-      date: course.diploma.approved_date,
-      url: course.diploma.diploma_url,
-      image: course.badge_url,
-    }));
+    return data.courses
+      .filter((course) => course?.diploma?.approved_date && course?.diploma?.diploma_url)
+      .map((course) => ({
+        id: `platzi-${course.id}`,
+        title: course.title,
+        issuer: 'Platzi',
+        provider: 'platzi',
+        date: course.diploma.approved_date,
+        url: course.diploma.diploma_url,
+        image: course.badge_url,
+      }));
   } catch (err) {
     console.warn(`[certificates] Failed to fetch Platzi diplomas for "${username}":`, err);
     return [];

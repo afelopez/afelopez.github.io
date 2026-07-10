@@ -12,7 +12,7 @@ export default function CertificateCard({ certificate, index }: { certificate: C
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.1 * index }}
+      transition={{ duration: 0.5, delay: Math.min(index * 0.05, 1) }}
       whileHover={{ y: -5, boxShadow: '0px 10px 20px rgba(0,0,0,0.1)' }}
       className="glass rounded-xl p-6 flex flex-col justify-between"
     >
