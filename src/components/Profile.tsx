@@ -75,46 +75,48 @@ const Profile = ({ repos, primarySkills, secondarySkills }: ProfileProps) => {
             </div>
           </div>
 
-          {/* Content: Primary Skills -> Secondary Skills -> Statistics */}
+          {/* Content: Primary+Secondary Skills grid -> Statistics */}
           <div className="flex-1 min-w-0 space-y-10">
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Primary Skills</h2>
-              <div className="space-y-3">
-                {primarySkills.map((skill, i) => (
-                  <motion.div
-                    key={skill.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 * i }}
-                  >
-                    <div className="mb-1 flex items-center justify-between text-sm">
-                      <span className="font-medium">{skill.name}</span>
-                    </div>
-                    <div className="h-2.5 rounded-full bg-teal-600/15 dark:bg-teal-500/10">
-                      <div
-                        className="h-2.5 rounded-full bg-teal-600 dark:bg-teal-400"
-                        style={{ width: `${Math.max(skill.score * 100, 4)}%` }}
-                      />
-                    </div>
-                  </motion.div>
-                ))}
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start lg:gap-8">
+              <div className="lg:col-span-5">
+                <h2 className="text-2xl font-bold mb-4">Primary Skills</h2>
+                <div className="space-y-3">
+                  {primarySkills.map((skill, i) => (
+                    <motion.div
+                      key={skill.name}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.1 * i }}
+                    >
+                      <div className="mb-1 flex items-center justify-between text-sm">
+                        <span className="font-medium">{skill.name}</span>
+                      </div>
+                      <div className="h-2.5 rounded-full bg-teal-600/15 dark:bg-teal-500/10">
+                        <div
+                          className="h-2.5 rounded-full bg-teal-600 dark:bg-teal-400"
+                          style={{ width: `${Math.max(skill.score * 100, 4)}%` }}
+                        />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Secondary Skills</h2>
-              <div className="flex flex-wrap gap-2">
-                {secondarySkills.map((skill, i) => (
-                  <motion.span
-                    key={skill}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 * i }}
-                    className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium dark:bg-gray-800"
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
+              <div className="lg:col-span-7">
+                <h2 className="text-2xl font-bold mb-4">Secondary Skills</h2>
+                <div className="flex flex-wrap gap-2">
+                  {secondarySkills.map((skill, i) => (
+                    <motion.span
+                      key={skill}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: Math.min(0.03 * i, 0.5) }}
+                      className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium dark:bg-gray-800"
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
               </div>
             </div>
 
