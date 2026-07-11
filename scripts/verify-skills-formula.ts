@@ -33,6 +33,7 @@ const repos: Repo[] = [
   makeRepo('py-1', { Python: 5000 }, daysAgo(459)),
   makeRepo('py-2', { Python: 4000 }, daysAgo(500)),
   makeRepo('fork-1', { Rust: 999999 }, daysAgo(1), true),
+  makeRepo('sql-1', { PLpgSQL: 8000 }, daysAgo(2)),
 ];
 
 const REDMONK_RANK: Record<string, number> = {
@@ -65,7 +66,7 @@ console.log(JSON.stringify(primary, null, 2));
 let failed = false;
 
 for (const skill of primary) {
-  if (skill.name === 'CSS' || skill.name === 'Rust') {
+  if (skill.name === 'CSS' || skill.name === 'Rust' || skill.name === 'PLpgSQL') {
     console.error(`FAIL: "${skill.name}" must not appear in Primary Skills`);
     failed = true;
   }
@@ -82,6 +83,13 @@ for (const [name, exp] of Object.entries(expected)) {
     console.error(`FAIL: ${name} expected ${exp.toFixed(4)}, got ${actual.toFixed(4)}`);
     failed = true;
   }
+}
+
+if (primary.length !== 6) {
+  console.error(
+    `FAIL: expected exactly 6 primary skills (the SELF_PERCEIVED_SKILL entries), got ${primary.length}: ${primary.map((s) => s.name).join(', ')}`
+  );
+  failed = true;
 }
 
 const order = primary.map((s) => s.name);

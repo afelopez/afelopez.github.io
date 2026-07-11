@@ -19,6 +19,13 @@ const CATEGORY_2_LANGUAGES = new Set([
 // AI-assisted/AI-recommended and doesn't reflect real depth). Edit this
 // directly whenever your own sense of a language changes; nothing else in
 // this file needs to change. Scale: 0-100.
+//
+// This is also the ALLOWLIST for Primary Skills: only languages listed
+// here can ever appear there, regardless of how much repo activity a
+// language has. A category-1 language detected in your repos but not
+// listed here (e.g. a one-off PLpgSQL migration or an old CoffeeScript
+// repo) is not a "primary" skill — it still shows up, just as a plain tag
+// in Secondary Skills (see getSecondarySkills below).
 export const SELF_PERCEIVED_SKILL: Record<string, number> = {
   Ruby: 85,
   JavaScript: 30,
@@ -27,10 +34,6 @@ export const SELF_PERCEIVED_SKILL: Record<string, number> = {
   Java: 40,
   Go: 40,
 };
-// Any category-1 language found in repos but not listed above (a new
-// language you start using before updating this file) falls back to this
-// neutral default rather than being silently excluded.
-const SELF_PERCEIVED_DEFAULT = 50;
 
 // RedMonk Programming Language Rankings, Q1 2026 (published 2026-04-14):
 // https://redmonk.com/sogrady/2026/04/14/language-rankings-1-26/
@@ -83,14 +86,9 @@ export function getPrimarySkills(repos: Repo[], limit = 8): PrimarySkill[] {
     }
   }
 
-  const allLanguages = new Set([
-    ...Object.keys(perLanguage),
-    ...Object.keys(SELF_PERCEIVED_SKILL),
-  ]);
-
-  const scored = [...allLanguages].map((name) => {
+  const scored = Object.keys(SELF_PERCEIVED_SKILL).map((name) => {
     const stats = perLanguage[name] ?? { projects: 0, mostRecentPush: null };
-    const selfPerception = (SELF_PERCEIVED_SKILL[name] ?? SELF_PERCEIVED_DEFAULT) / 100;
+    const selfPerception = SELF_PERCEIVED_SKILL[name] / 100;
     const score =
       selfPerception * 0.45 +
       projectScore(stats.projects) * 0.25 +
@@ -158,7 +156,7 @@ export async function getSecondarySkills(username: string, repos: Repo[]): Promi
   for (const repo of repos) {
     if (repo.fork || !repo.languages) continue;
     for (const lang of Object.keys(repo.languages)) {
-      if (CATEGORY_2_LANGUAGES.has(lang)) detected.add(lang);
+      if (!(lang in SELF_PERCEIVED_SKILL)) detected.add(lang);
     }
   }
 
