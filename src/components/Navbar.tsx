@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import ModeToggle from './ModeToggle';
 
 const navItems = [
   { name: 'Home', href: '/' },
@@ -55,9 +54,6 @@ const Navbar = () => {
             {item.name}
           </Link>
         ))}
-        <div className="ml-2">
-          <ModeToggle />
-        </div>
       </div>
     </motion.nav>
   );
