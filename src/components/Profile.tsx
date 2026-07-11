@@ -2,53 +2,32 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Repo } from '@/lib/github';
-import Stars from './Stars';
+import { PrimarySkill } from '@/lib/skills';
 
 interface ProfileProps {
   repos: Repo[];
+  primarySkills: PrimarySkill[];
+  secondarySkills: string[];
 }
 
-const Profile = ({ repos }: ProfileProps) => {
-  const languageStats = repos
-    ? repos.reduce<Record<string, number>>((acc, repo) => {
-        if (repo.language) {
-          acc[repo.language] = (acc[repo.language] || 0) + 1;
-        }
-        return acc;
-      }, {})
-    : {};
+const spokenLanguages = [
+  { lang: 'Spanish', level: 'Native' },
+  { lang: 'English', level: 'B2' },
+];
 
-  const sortedLanguages = Object.entries(languageStats).sort((a, b) => b[1] - a[1]);
-  const maxCount = sortedLanguages.length > 0 ? sortedLanguages[0][1] : 0;
-
-  const topSkills = sortedLanguages.slice(0, 7);
-
-  const getStarCount = (count: number) => {
-    if (maxCount === 0) return 0;
-    return Math.ceil((count / maxCount) * 5);
-  };
-
-  const secondarySkills = [
-    'Ruby on Rails', 'FastAPI', 'PostgreSQL', 'MySQL', 'AWS RDS', 'Redis', 
-    'Docker', 'GitHub Actions', 'AWS (Lambda, S3)', 'Heroku', 'Datadog', 'New Relic'
-  ];
-  const spokenLanguages = [
-    { lang: 'Spanish', level: 'Native' },
-    { lang: 'English', level: 'B2' }
-  ];
-
+const Profile = ({ repos, primarySkills, secondarySkills }: ProfileProps) => {
   return (
-    <motion.section 
+    <motion.section
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
       className="py-12 mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8"
     >
       <div className="glass rounded-2xl p-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-          {/* Left Column: Profile Info */}
-          <div className="md:col-span-1 flex flex-col items-center text-center">
-            <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 300 }}>
+        <div className="flex flex-col gap-10 md:flex-row">
+          {/* Sidebar: fixed-width profile panel */}
+          <div className="flex flex-col items-center text-center md:w-64 md:flex-shrink-0">
+            <motion.div whileHover={{ scale: 1.05 }} transition={{ type: 'spring', stiffness: 300 }}>
               <Image
                 src="/profile.png" // Placeholder
                 alt="Profile Picture"
@@ -66,6 +45,13 @@ const Profile = ({ repos }: ProfileProps) => {
               <p><a href="mailto:dev.andres.lopez@gmail.com" className="hover:text-teal-500">dev.andres.lopez@gmail.com</a></p>
               <p><a href="https://linkedin.com/in/afelopez" target="_blank" rel="noopener noreferrer" className="hover:text-teal-500">linkedin.com/in/afelopez</a></p>
               <p>(+34) 644 980 908</p>
+            </div>
+            <div className="mt-4 space-y-1 text-sm text-gray-600 dark:text-gray-300">
+              {spokenLanguages.map((lang) => (
+                <p key={lang.lang}>
+                  <span className="font-medium">{lang.lang}</span> — {lang.level}
+                </p>
+              ))}
             </div>
             <div className="flex gap-3 mt-6">
               <motion.a
@@ -89,52 +75,59 @@ const Profile = ({ repos }: ProfileProps) => {
             </div>
           </div>
 
-          {/* Right Column: Skills & Stats */}
-          <div className="md:col-span-2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Primary Skills</h2>
-                <div className="space-y-3">
-                  {topSkills.map(([lang, count], i) => (
-                    <motion.div key={lang} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 * i }} className="flex items-center justify-between">
-                      <span className="font-medium">{lang}</span>
-                      <Stars count={getStarCount(count)} />
-                    </motion.div>
-                  ))}
-                </div>
+          {/* Content: Primary Skills -> Secondary Skills -> Statistics */}
+          <div className="flex-1 min-w-0 space-y-10">
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Primary Skills</h2>
+              <div className="space-y-3">
+                {primarySkills.map((skill, i) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 * i }}
+                  >
+                    <div className="mb-1 flex items-center justify-between text-sm">
+                      <span className="font-medium">{skill.name}</span>
+                    </div>
+                    <div className="h-2.5 rounded-full bg-teal-600/15 dark:bg-teal-500/10">
+                      <div
+                        className="h-2.5 rounded-full bg-teal-600 dark:bg-teal-400"
+                        style={{ width: `${Math.max(skill.score * 100, 4)}%` }}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Secondary Skills</h2>
-                <div className="flex flex-wrap gap-2">
-                  {secondarySkills.map((skill, i) => (
-                    <motion.span key={skill} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 * i }} className="bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-1 text-sm font-medium">
-                      {skill}
-                    </motion.span>
-                  ))}
-                </div>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Secondary Skills</h2>
+              <div className="flex flex-wrap gap-2">
+                {secondarySkills.map((skill, i) => (
+                  <motion.span
+                    key={skill}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 * i }}
+                    className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium dark:bg-gray-800"
+                  >
+                    {skill}
+                  </motion.span>
+                ))}
               </div>
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Languages</h2>
-                <div className="space-y-2">
-                  {spokenLanguages.map((lang, i) => (
-                    <motion.div key={lang.lang} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }} className="flex items-center">
-                      <span className="font-medium w-24">{lang.lang}</span>
-                      <span className="text-gray-500 dark:text-gray-400">{lang.level}</span>
-                    </motion.div>
-                  ))}
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Statistics</h2>
+              <div className="flex gap-10">
+                <div className="text-left">
+                  <p className="text-3xl font-bold">{repos.length}</p>
+                  <p className="text-gray-500 dark:text-gray-400">Public Repos</p>
                 </div>
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Statistics</h2>
-                <div className="flex gap-8">
-                  <div className="text-left">
-                    <p className="text-3xl font-bold">{repos.length}</p>
-                    <p className="text-gray-500 dark:text-gray-400">Public Repos</p>
-                  </div>
-                  <div className="text-left">
-                    <p className="text-3xl font-bold">5+</p>
-                    <p className="text-gray-500 dark:text-gray-400">Years of Experience</p>
-                  </div>
+                <div className="text-left">
+                  <p className="text-3xl font-bold">5+</p>
+                  <p className="text-gray-500 dark:text-gray-400">Years of Experience</p>
                 </div>
               </div>
             </div>
