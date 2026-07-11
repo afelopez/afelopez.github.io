@@ -9,28 +9,16 @@ html { scroll-behavior: smooth; }
    CSS variables — change on :root (light) and .dark override
    ============================================================ */
 :root {
-  --background: #f2f2f4;
-  --foreground: #0f0f0f;
+  /* Azul medianoche */
+  --background: #0F2942;
+  /* Blanco nieve */
+  --foreground: #F8FAFC;
 
-  /* Glass card */
-  --glass-bg: rgba(235, 235, 240, 0.92);
-  --glass-border: rgba(255, 255, 255, 0.98);
-  --glass-shadow: rgba(0, 0, 0, 0.09);
-  --glass-highlight: rgba(255, 255, 255, 1);
-
-  /* Text */
-  --muted: #525a6a;
-  --subtle: #8891a0;
-}
-
-.dark {
-  --background: #0b0b10;
-  --foreground: #eeeeee;
-
-  --glass-bg: rgba(16, 16, 24, 0.92);
-  --glass-border: rgba(255, 255, 255, 0.09);
-  --glass-shadow: rgba(0, 0, 0, 0.65);
-  --glass-highlight: rgba(255, 255, 255, 0.06);
+  /* Glass card — Gris carbón, distinct from the midnight-blue background */
+  --glass-bg: rgba(51, 65, 85, 0.92);
+  --glass-border: rgba(248, 250, 252, 0.10);
+  --glass-shadow: rgba(0, 0, 0, 0.55);
+  --glass-highlight: rgba(248, 250, 252, 0.06);
 
   --muted: #a8b2c2;
   --subtle: #6e7a8a;
