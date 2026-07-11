@@ -45,7 +45,7 @@ export default function CertificateCard({ certificate, index }: { certificate: C
           rel="noopener noreferrer"
           title="Ver certificado"
           aria-label="Ver certificado"
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-teal-500/40 bg-teal-600/15 text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/25 dark:border-teal-400/30 dark:bg-teal-500/10 dark:text-teal-400 dark:hover:bg-teal-500/20"
+          className="flex h-10 w-10 items-center justify-center rounded-lg border border-teal-500/60 bg-teal-600/25 text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/35 dark:border-teal-400/50 dark:bg-teal-500/20 dark:text-teal-400 dark:hover:bg-teal-500/30"
         >
           <LinkIcon icon="external-link" />
         </a>
