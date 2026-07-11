@@ -3,21 +3,10 @@ import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Repo } from '@/lib/github';
 import RepositoryCard from './RepositoryCard';
+import SearchInput from './SearchInput';
+import { LANG_COLORS } from '@/lib/languageColors';
 
 type SortKey = 'stars' | 'name' | 'updated';
-
-const LANG_COLORS: Record<string, string> = {
-  TypeScript: 'bg-blue-500',
-  JavaScript: 'bg-yellow-400',
-  Python:     'bg-green-500',
-  Ruby:       'bg-red-500',
-  Go:         'bg-cyan-500',
-  Rust:       'bg-orange-600',
-  Java:       'bg-orange-400',
-  CSS:        'bg-purple-500',
-  HTML:       'bg-orange-500',
-  Shell:      'bg-gray-500',
-};
 
 export default function RepositoriesPage({ repos }: { repos: Repo[] }) {
   const [search, setSearch] = useState('');
@@ -58,30 +47,20 @@ export default function RepositoriesPage({ repos }: { repos: Repo[] }) {
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Header */}
-      <div className="mb-10 text-center">
+      <div className="mb-8 text-center">
         <h1 className="text-4xl font-bold">Repositories</h1>
-        <p className="mt-2 text-gray-500 dark:text-gray-400">
-          {repos.length} public repos
-          {filtered.length !== repos.length && ` · ${filtered.length} shown`}
-        </p>
       </div>
 
       {/* Controls */}
-      <div className="glass mb-8 rounded-2xl p-4 flex flex-col gap-4 sm:flex-row sm:items-center">
+      <div className="glass mb-8 rounded-2xl p-3 flex flex-col gap-4 sm:flex-row sm:items-center">
         {/* Search */}
-        <input
-          type="text"
-          placeholder="Search repos…"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-gray-900/40 px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500 dark:text-gray-100 placeholder-gray-400"
-        />
+        <SearchInput value={search} onChange={setSearch} placeholder="Search repos…" />
 
         {/* Sort */}
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value as SortKey)}
-          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-gray-900/40 px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500 dark:text-gray-100"
+          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-gray-900/40 px-3 py-1 text-sm outline-none focus:ring-2 focus:ring-teal-500 dark:text-gray-100"
         >
           <option value="stars">Sort: Stars</option>
           <option value="name">Sort: Name</option>
