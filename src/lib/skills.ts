@@ -1,68 +1,125 @@
 // src/lib/skills.ts
 import { Repo } from './github';
 
-// Markup, styling, and infra/config file types — down-weighted so they never
-// crowd out real application languages in the Primary Skills ranking, even
-// when they account for a large share of raw bytes (e.g. CSS in a small
-// frontend project). Everything NOT in this list defaults to full weight —
-// this is a downweight list, not an allowlist, so a language never seen in
-// this account yet (Go, Java, Rust, ...) is still weighted correctly the
-// first time it shows up. MATLAB is included deliberately: for this
-// backend-developer portfolio, a coursework language shouldn't compete with
-// Ruby/Python/JS in the ranking.
-const DOWNWEIGHTED_LANGUAGES = new Set([
+// Category-2: markup, styling, and infra/config file types. These never
+// compete for a Primary Skills slot, regardless of byte volume — CSS next
+// to Ruby as a "primary skill" misrepresents a backend developer's actual
+// competency profile. They still surface, as plain tags, in Secondary
+// Skills. Not an allowlist: any language NOT in this set defaults to
+// category-1, so a language never seen in this account yet is still
+// routed correctly the first time it shows up.
+const CATEGORY_2_LANGUAGES = new Set([
   'CSS', 'HTML', 'SCSS', 'Less', 'Dockerfile', 'Shell', 'Makefile', 'YAML',
   'Haml', 'Slim', 'ERB', 'MATLAB', 'Jupyter Notebook', 'TOML', 'XML',
   'Vim Script', 'Batchfile', 'PowerShell',
 ]);
-const DOWNWEIGHT_FACTOR = 0.05;
+
+// Manually maintained — reflects how well *you* actually know a language,
+// deliberately independent of GitHub byte volume (a lot of repo code is
+// AI-assisted/AI-recommended and doesn't reflect real depth). Edit this
+// directly whenever your own sense of a language changes; nothing else in
+// this file needs to change. Scale: 0-100.
+export const SELF_PERCEIVED_SKILL: Record<string, number> = {
+  Ruby: 85,
+  JavaScript: 30,
+  TypeScript: 10,
+  Python: 65,
+  Java: 40,
+  Go: 40,
+};
+// Any category-1 language found in repos but not listed above (a new
+// language you start using before updating this file) falls back to this
+// neutral default rather than being silently excluded.
+const SELF_PERCEIVED_DEFAULT = 50;
+
+// RedMonk Programming Language Rankings, Q1 2026 (published 2026-04-14):
+// https://redmonk.com/sogrady/2026/04/14/language-rankings-1-26/
+// Chosen over TIOBE/PYPL: those are search-query-based (volatile month to
+// month, and documented to underrate languages with strong official docs,
+// e.g. TypeScript). RedMonk blends real GitHub + Stack Overflow activity
+// and only updates twice a year — a more stable signal for this use case.
+const REDMONK_RANK: Record<string, number> = {
+  JavaScript: 1, Python: 2, Java: 3, PHP: 4, 'C#': 4, TypeScript: 6,
+  CSS: 7, 'C++': 7, Ruby: 9, C: 10, Swift: 11, Go: 12, R: 13,
+  Shell: 14, Kotlin: 14, Scala: 14, PowerShell: 17, Dart: 18,
+  'Objective-C': 18, Rust: 20,
+};
+const UNRANKED_REDMONK_RANK = 21; // beyond RedMonk's tracked top 20 → popularityScore 0
+
+function popularityScore(lang: string): number {
+  const rank = REDMONK_RANK[lang] ?? UNRANKED_REDMONK_RANK;
+  return Math.max(0, 1 - (rank - 1) / 20);
+}
+
+function recencyScore(mostRecentPushedAt: string | null): number {
+  if (!mostRecentPushedAt) return 0;
+  const days = (Date.now() - new Date(mostRecentPushedAt).getTime()) / 86_400_000;
+  return Math.max(0, 1 - days / 730);
+}
+
+function projectScore(count: number): number {
+  return Math.min(count / 5, 1);
+}
 
 export interface PrimarySkill {
   name: string;
-  /** 0-1, normalized relative to the top-scoring skill — use directly as a bar width percentage. */
+  /** 0-1 absolute weighted score — use directly as a bar width percentage. */
   score: number;
 }
 
-export function getPrimarySkills(repos: Repo[], limit = 7): PrimarySkill[] {
-  const totals: Record<string, number> = {};
+export function getPrimarySkills(repos: Repo[], limit = 8): PrimarySkill[] {
+  const perLanguage: Record<string, { projects: number; mostRecentPush: string | null }> = {};
+
   for (const repo of repos) {
     if (repo.fork || !repo.languages) continue;
-    for (const [lang, bytes] of Object.entries(repo.languages)) {
-      const weight = DOWNWEIGHTED_LANGUAGES.has(lang) ? DOWNWEIGHT_FACTOR : 1;
-      totals[lang] = (totals[lang] ?? 0) + bytes * weight;
+    for (const lang of Object.keys(repo.languages)) {
+      if (CATEGORY_2_LANGUAGES.has(lang)) continue;
+      const entry = perLanguage[lang] ?? { projects: 0, mostRecentPush: null };
+      entry.projects += 1;
+      if (!entry.mostRecentPush || repo.pushed_at > entry.mostRecentPush) {
+        entry.mostRecentPush = repo.pushed_at;
+      }
+      perLanguage[lang] = entry;
     }
   }
 
-  const ranked = Object.entries(totals).sort((a, b) => b[1] - a[1]).slice(0, limit);
-  const max = ranked.length > 0 ? ranked[0][1] : 0;
+  const allLanguages = new Set([
+    ...Object.keys(perLanguage),
+    ...Object.keys(SELF_PERCEIVED_SKILL),
+  ]);
 
-  return ranked.map(([name, weightedBytes]) => ({
-    name,
-    score: max > 0 ? weightedBytes / max : 0,
-  }));
+  const scored = [...allLanguages].map((name) => {
+    const stats = perLanguage[name] ?? { projects: 0, mostRecentPush: null };
+    const selfPerception = (SELF_PERCEIVED_SKILL[name] ?? SELF_PERCEIVED_DEFAULT) / 100;
+    const score =
+      selfPerception * 0.45 +
+      projectScore(stats.projects) * 0.25 +
+      recencyScore(stats.mostRecentPush) * 0.15 +
+      popularityScore(name) * 0.15;
+    return { name, score };
+  });
+
+  return scored.sort((a, b) => b.score - a.score).slice(0, limit);
 }
 
 // dependency/gem/package name → display name. Only names in this map are
 // ever surfaced — everything else in a manifest (@types/*, eslint, rubocop,
 // etc.) is intentionally ignored as noise.
 const KNOWN_FRAMEWORKS: Record<string, string> = {
-  // npm (package.json dependencies + devDependencies)
   react: 'React', next: 'Next.js', vue: 'Vue.js', express: 'Express',
   tailwindcss: 'Tailwind CSS', vite: 'Vite', redux: 'Redux',
   '@nestjs/core': 'NestJS',
-  // RubyGems (Gemfile)
   rails: 'Ruby on Rails', sinatra: 'Sinatra', pg: 'PostgreSQL',
   mysql2: 'MySQL', redis: 'Redis', sidekiq: 'Sidekiq', devise: 'Devise',
   rspec: 'RSpec',
-  // pip (requirements.txt)
   fastapi: 'FastAPI', django: 'Django', flask: 'Flask',
   sqlalchemy: 'SQLAlchemy', psycopg2: 'PostgreSQL', celery: 'Celery',
 };
 
 // Infra/cloud/tooling skills that are real but structurally invisible to
 // manifest parsing (no repo's package.json lists "AWS" as a dependency).
-// Keep this list short — it's the one piece of this feature that isn't
-// auto-verified, so every entry should be something the user actually uses.
+// Keep this list short — every entry should be something the user
+// actually uses.
 const SUPPLEMENTARY_SKILLS = [
   'Docker', 'GitHub Actions', 'AWS (Lambda, S3, RDS)', 'Heroku', 'Datadog', 'New Relic',
 ];
@@ -87,9 +144,9 @@ function extractDependencyNames(path: string, text: string): string[] {
   if (path === 'requirements.txt') {
     return text
       .split('\n')
-      .map((line) => line.split('#')[0].trim()) // strip comments
+      .map((line) => line.split('#')[0].trim())
       .filter(Boolean)
-      .map((line) => line.split(/[=<>~!]/)[0].trim()) // strip version specifiers
+      .map((line) => line.split(/[=<>~!]/)[0].trim())
       .filter(Boolean);
   }
   return [];
@@ -97,6 +154,14 @@ function extractDependencyNames(path: string, text: string): string[] {
 
 export async function getSecondarySkills(username: string, repos: Repo[]): Promise<string[]> {
   const detected = new Set<string>();
+
+  for (const repo of repos) {
+    if (repo.fork || !repo.languages) continue;
+    for (const lang of Object.keys(repo.languages)) {
+      if (CATEGORY_2_LANGUAGES.has(lang)) detected.add(lang);
+    }
+  }
+
   const headers: HeadersInit = {};
   if (process.env.GITHUB_ACCESS_TOKEN) {
     headers['Authorization'] = `token ${process.env.GITHUB_ACCESS_TOKEN}`;
@@ -116,7 +181,7 @@ export async function getSecondarySkills(username: string, repos: Repo[]): Promi
             `https://api.github.com/repos/${username}/${repo.name}/contents/${path}`,
             { headers }
           );
-          if (!res.ok) continue; // 404 is expected/common — not every repo has every manifest
+          if (!res.ok) continue;
           const { content } = await res.json();
           const text = Buffer.from(content, 'base64').toString('utf-8');
           for (const depName of extractDependencyNames(path, text)) {
