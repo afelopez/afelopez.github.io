@@ -37,16 +37,16 @@ export default function RepositoryCard({ repo, index }: { repo: Repo, index: num
         </a>
         <p className="text-gray-600 dark:text-gray-400 mt-2">{truncateWords(repo.description, 15)}</p>
       </div>
-      <div className="flex flex-wrap justify-between items-center gap-2 mt-6 text-sm text-gray-500 dark:text-gray-400">
-        <div className="flex flex-wrap gap-2">
+      <div className="mt-6 flex items-center justify-between gap-2 text-sm text-gray-500 dark:text-gray-400">
+        <div className="flex h-14 flex-1 flex-wrap content-start gap-2 overflow-hidden">
           {topLanguages.map(lang => (
-            <span key={lang} className="flex items-center gap-1.5 bg-gray-100 dark:bg-gray-700 rounded-full px-2 py-1 text-xs font-medium">
+            <span key={lang} className="flex h-fit items-center gap-1.5 bg-gray-100 dark:bg-gray-700 rounded-full px-2 py-1 text-xs font-medium">
               <span className={`h-2 w-2 rounded-full ${LANG_COLORS[lang] ?? 'bg-gray-400'}`} />
               {lang}
             </span>
           ))}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2">
           <a
               href={repo.html_url}
               target="_blank"
