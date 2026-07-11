@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { Repo } from '@/lib/github';
+import LinkIcon from '@/components/LinkIcon';
 
 export default function RepositoryCard({ repo, index }: { repo: Repo, index: number }) {
   const topLanguages = repo.languages ? Object.keys(repo.languages).slice(0, 3) : (repo.language ? [repo.language] : []);
@@ -28,7 +29,7 @@ export default function RepositoryCard({ repo, index }: { repo: Repo, index: num
         </a>
         <p className="text-gray-600 dark:text-gray-400 mt-2">{repo.description}</p>
       </div>
-      <div className="flex justify-between items-center mt-6 text-sm text-gray-500 dark:text-gray-400">
+      <div className="flex flex-wrap justify-between items-center gap-2 mt-6 text-sm text-gray-500 dark:text-gray-400">
         <div className="flex flex-wrap gap-2">
           {topLanguages.map(lang => (
             <span key={lang} className="bg-gray-100 dark:bg-gray-700 rounded-full px-2 py-1 text-xs font-medium">
@@ -41,18 +42,22 @@ export default function RepositoryCard({ repo, index }: { repo: Repo, index: num
               href={repo.html_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-teal-500/40 bg-teal-600/15 px-5 py-2 text-sm font-semibold text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/25 dark:border-teal-400/30 dark:bg-teal-500/10 dark:text-teal-400 dark:hover:bg-teal-500/20"
+              title="GitHub"
+              aria-label="GitHub"
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-teal-500/40 bg-teal-600/15 text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/25 dark:border-teal-400/30 dark:bg-teal-500/10 dark:text-teal-400 dark:hover:bg-teal-500/20"
             >
-             Github
+              <LinkIcon icon="github" />
             </a>
           {pagesUrl && (
             <a
               href={pagesUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-teal-500/40 bg-teal-600/15 px-5 py-2 text-sm font-semibold text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/25 dark:border-teal-400/30 dark:bg-teal-500/10 dark:text-teal-400 dark:hover:bg-teal-500/20"
+              title="Live Demo"
+              aria-label="Live Demo"
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-teal-500/40 bg-teal-600/15 text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/25 dark:border-teal-400/30 dark:bg-teal-500/10 dark:text-teal-400 dark:hover:bg-teal-500/20"
             >
-              Live Demo
+              <LinkIcon icon="external-link" />
             </a>
           )}
           <span>⭐ {repo.stargazers_count}</span>
