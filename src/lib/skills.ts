@@ -26,7 +26,7 @@ export interface PrimarySkill {
 export function getPrimarySkills(repos: Repo[], limit = 7): PrimarySkill[] {
   const totals: Record<string, number> = {};
   for (const repo of repos) {
-    if (!repo.languages) continue;
+    if (repo.fork || !repo.languages) continue;
     for (const [lang, bytes] of Object.entries(repo.languages)) {
       const weight = DOWNWEIGHTED_LANGUAGES.has(lang) ? DOWNWEIGHT_FACTOR : 1;
       totals[lang] = (totals[lang] ?? 0) + bytes * weight;
@@ -103,7 +103,7 @@ export async function getSecondarySkills(username: string, repos: Repo[]): Promi
   }
 
   await Promise.all(
-    repos.map(async (repo) => {
+    repos.filter((repo) => !repo.fork).map(async (repo) => {
       const langs = repo.languages ? Object.keys(repo.languages) : [];
       const manifestPaths: string[] = [];
       if (langs.includes('JavaScript') || langs.includes('TypeScript')) manifestPaths.push('package.json');

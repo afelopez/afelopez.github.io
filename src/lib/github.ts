@@ -10,6 +10,7 @@ export interface Repo {
   languages?: Record<string, number>;
   updated_at?: string;
   has_pages: boolean;
+  fork: boolean;
 }
 
 export async function getRepositories(username: string): Promise<Repo[]> {
