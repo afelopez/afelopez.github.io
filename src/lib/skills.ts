@@ -15,7 +15,7 @@ const DOWNWEIGHTED_LANGUAGES = new Set([
   'Haml', 'Slim', 'ERB', 'MATLAB', 'Jupyter Notebook', 'TOML', 'XML',
   'Vim Script', 'Batchfile', 'PowerShell',
 ]);
-const DOWNWEIGHT_FACTOR = 0.1;
+const DOWNWEIGHT_FACTOR = 0.05;
 
 export interface PrimarySkill {
   name: string;
