@@ -13,7 +13,7 @@ const TYPE_TO_ICON: Record<LinkType, IconName> = {
 export default function ProjectsPage({ projects }: { projects: Project[] }) {
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mb-10 text-center">
+      <div className="mb-8 text-center">
         <h1 className="text-4xl font-bold">Projects</h1>
       </div>
 
@@ -56,35 +56,37 @@ export default function ProjectsPage({ projects }: { projects: Project[] }) {
 
                 <div className="flex min-w-0 flex-1 flex-col justify-center gap-4 p-6 sm:p-8">
                   <h3 className="text-2xl font-bold">{project.name}</h3>
-                  <p className="leading-relaxed text-gray-500 dark:text-gray-400">
+                  <p className="leading-relaxed text-gray-500 dark:text-gray-400 sm:max-w-[70%]">
                     {project.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-300"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex flex-wrap gap-2">
+                      {project.tech.map((t) => (
+                        <span
+                          key={t}
+                          className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
 
-                  <div className="flex flex-wrap gap-2">
-                    {project.links.map((link) => (
-                      <a
-                        key={link.url}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title={link.label}
-                        aria-label={link.label}
-                        className="flex h-10 w-10 items-center justify-center rounded-lg border border-teal-500/40 bg-teal-600/15 text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/25 dark:border-teal-400/30 dark:bg-teal-500/10 dark:text-teal-400 dark:hover:bg-teal-500/20"
-                      >
-                        <LinkIcon icon={TYPE_TO_ICON[link.type]} />
-                      </a>
-                    ))}
+                    <div className="flex flex-wrap gap-2">
+                      {project.links.map((link) => (
+                        <a
+                          key={link.url}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title={link.label}
+                          aria-label={link.label}
+                          className="flex h-10 w-10 items-center justify-center rounded-lg border border-teal-500/40 bg-teal-600/15 text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/25 dark:border-teal-400/30 dark:bg-teal-500/10 dark:text-teal-400 dark:hover:bg-teal-500/20"
+                        >
+                          <LinkIcon icon={TYPE_TO_ICON[link.type]} />
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </motion.div>
