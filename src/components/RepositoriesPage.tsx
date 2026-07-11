@@ -74,14 +74,14 @@ export default function RepositoriesPage({ repos }: { repos: Repo[] }) {
           placeholder="Search repos…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-gray-900/40 px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-100 placeholder-gray-400"
+          className="flex-1 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-gray-900/40 px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500 dark:text-gray-100 placeholder-gray-400"
         />
 
         {/* Sort */}
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value as SortKey)}
-          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-gray-900/40 px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-100"
+          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-gray-900/40 px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500 dark:text-gray-100"
         >
           <option value="stars">Sort: Stars</option>
           <option value="name">Sort: Name</option>
@@ -95,7 +95,7 @@ export default function RepositoriesPage({ repos }: { repos: Repo[] }) {
           onClick={() => setActiveLang(null)}
           className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
             activeLang === null
-              ? 'bg-blue-600 text-white'
+              ? 'bg-teal-600 text-white'
               : 'glass text-gray-600 dark:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-800/50'
           }`}
         >
@@ -107,7 +107,7 @@ export default function RepositoriesPage({ repos }: { repos: Repo[] }) {
             onClick={() => setActiveLang(lang === activeLang ? null : lang)}
             className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
               activeLang === lang
-                ? 'bg-blue-600 text-white'
+                ? 'bg-teal-600 text-white'
                 : 'glass text-gray-600 dark:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-800/50'
             }`}
           >

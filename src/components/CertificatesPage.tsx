@@ -76,12 +76,12 @@ export default function CertificatesPage({ certificates }: { certificates: Certi
           placeholder="Search certificates…"
           value={search}
           onChange={(e) => handleSearchChange(e.target.value)}
-          className="flex-1 rounded-xl border border-gray-200 bg-white/60 px-4 py-2 text-sm outline-none placeholder-gray-400 focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-100"
+          className="flex-1 rounded-xl border border-gray-200 bg-white/60 px-4 py-2 text-sm outline-none placeholder-gray-400 focus:ring-2 focus:ring-teal-500 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-100"
         />
         <select
           value={sort}
           onChange={(e) => handleSortChange(e.target.value as SortKey)}
-          className="rounded-xl border border-gray-200 bg-white/60 px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-100"
+          className="rounded-xl border border-gray-200 bg-white/60 px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-100"
         >
           <option value="newest">Sort: Newest</option>
           <option value="oldest">Sort: Oldest</option>
@@ -95,7 +95,7 @@ export default function CertificatesPage({ certificates }: { certificates: Certi
           onClick={() => handleProviderChange(null)}
           className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
             activeProvider === null
-              ? 'bg-blue-600 text-white'
+              ? 'bg-teal-600 text-white'
               : 'glass text-gray-600 hover:bg-white/50 dark:text-gray-300 dark:hover:bg-gray-800/50'
           }`}
         >
@@ -107,7 +107,7 @@ export default function CertificatesPage({ certificates }: { certificates: Certi
             onClick={() => handleProviderChange(provider === activeProvider ? null : provider)}
             className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
               activeProvider === provider
-                ? 'bg-blue-600 text-white'
+                ? 'bg-teal-600 text-white'
                 : 'glass text-gray-600 hover:bg-white/50 dark:text-gray-300 dark:hover:bg-gray-800/50'
             }`}
           >
@@ -138,7 +138,7 @@ export default function CertificatesPage({ certificates }: { certificates: Certi
                     aria-current={p === currentPage ? 'page' : undefined}
                     className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-medium transition-colors ${
                       p === currentPage
-                        ? 'bg-blue-600 text-white'
+                        ? 'bg-teal-600 text-white'
                         : 'glass text-gray-600 hover:bg-white/50 dark:text-gray-300 dark:hover:bg-gray-800/50'
                     }`}
                   >
