@@ -73,7 +73,7 @@ const Profile = ({ repos }: ProfileProps) => {
                 whileTap={{ scale: 0.95 }}
                 href="/cv_en.pdf"
                 download
-                className="inline-flex items-center gap-1.5 rounded-lg border border-teal-500/40 bg-teal-600/15 px-5 py-2 text-sm font-semibold text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/25 dark:border-teal-400/30 dark:bg-teal-500/10 dark:text-teal-400 dark:hover:bg-teal-500/20"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-teal-500/60 bg-teal-600/25 px-5 py-2 text-sm font-semibold text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/35 dark:border-teal-400/50 dark:bg-teal-500/20 dark:text-teal-400 dark:hover:bg-teal-500/30"
               >
                 ↓ CV (EN)
               </motion.a>
@@ -82,7 +82,7 @@ const Profile = ({ repos }: ProfileProps) => {
                 whileTap={{ scale: 0.95 }}
                 href="/cv_es.pdf"
                 download
-                className="inline-flex items-center gap-1.5 rounded-lg border border-teal-500/40 bg-teal-600/15 px-5 py-2 text-sm font-semibold text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/25 dark:border-teal-400/30 dark:bg-teal-500/10 dark:text-teal-400 dark:hover:bg-teal-500/20"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-teal-500/60 bg-teal-600/25 px-5 py-2 text-sm font-semibold text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/35 dark:border-teal-400/50 dark:bg-teal-500/20 dark:text-teal-400 dark:hover:bg-teal-500/30"
               >
                 ↓ CV (ES)
               </motion.a>
