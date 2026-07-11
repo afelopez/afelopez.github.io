@@ -42,7 +42,7 @@ const Profile = ({ repos }: ProfileProps) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="my-12 mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8"
+      className="py-12 mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8"
     >
       <div className="glass rounded-2xl p-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
@@ -63,8 +63,8 @@ const Profile = ({ repos }: ProfileProps) => {
               Backend Developer
             </p>
             <div className="mt-6 text-sm text-gray-600 dark:text-gray-300">
-              <p><a href="mailto:dev.andres.lopez@gmail.com" className="hover:text-blue-500">dev.andres.lopez@gmail.com</a></p>
-              <p><a href="https://linkedin.com/in/afelopez" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">linkedin.com/in/afelopez</a></p>
+              <p><a href="mailto:dev.andres.lopez@gmail.com" className="hover:text-teal-500">dev.andres.lopez@gmail.com</a></p>
+              <p><a href="https://linkedin.com/in/afelopez" target="_blank" rel="noopener noreferrer" className="hover:text-teal-500">linkedin.com/in/afelopez</a></p>
               <p>(+34) 644 980 908</p>
             </div>
             <div className="flex gap-3 mt-6">
@@ -73,7 +73,7 @@ const Profile = ({ repos }: ProfileProps) => {
                 whileTap={{ scale: 0.95 }}
                 href="/cv_en.pdf"
                 download
-                className="inline-flex items-center gap-1.5 rounded-lg border border-blue-500/40 bg-blue-600/15 px-5 py-2 text-sm font-semibold text-blue-600 backdrop-blur-sm transition-colors hover:bg-blue-600/25 dark:border-blue-400/30 dark:bg-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500/20"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-teal-500/40 bg-teal-600/15 px-5 py-2 text-sm font-semibold text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/25 dark:border-teal-400/30 dark:bg-teal-500/10 dark:text-teal-400 dark:hover:bg-teal-500/20"
               >
                 ↓ CV (EN)
               </motion.a>
@@ -82,7 +82,7 @@ const Profile = ({ repos }: ProfileProps) => {
                 whileTap={{ scale: 0.95 }}
                 href="/cv_es.pdf"
                 download
-                className="inline-flex items-center gap-1.5 rounded-lg border border-blue-500/40 bg-blue-600/15 px-5 py-2 text-sm font-semibold text-blue-600 backdrop-blur-sm transition-colors hover:bg-blue-600/25 dark:border-blue-400/30 dark:bg-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500/20"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-teal-500/40 bg-teal-600/15 px-5 py-2 text-sm font-semibold text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/25 dark:border-teal-400/30 dark:bg-teal-500/10 dark:text-teal-400 dark:hover:bg-teal-500/20"
               >
                 ↓ CV (ES)
               </motion.a>
