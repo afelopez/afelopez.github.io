@@ -7,7 +7,8 @@
     "build": "next build",
     "lint": "eslint",
     "verify:credly": "tsx scripts/verify-credly.ts",
-    "verify:platzi": "tsx scripts/verify-platzi.ts"
+    "verify:platzi": "tsx scripts/verify-platzi.ts",
+    "verify:skills": "tsx scripts/verify-skills.ts"
   },
   "dependencies": {
     "framer-motion": "^12.42.2",
