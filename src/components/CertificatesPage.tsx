@@ -3,6 +3,7 @@ import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Certificate, providerLabel } from '@/data/certificates';
 import CertificateCard from './CertificateCard';
+import SearchInput from './SearchInput';
 
 type SortKey = 'newest' | 'oldest' | 'name';
 
@@ -61,27 +62,17 @@ export default function CertificatesPage({ certificates }: { certificates: Certi
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Header */}
-      <div className="mb-10 text-center">
+      <div className="mb-8 text-center">
         <h1 className="text-4xl font-bold">Certificates</h1>
-        <p className="mt-2 text-gray-500 dark:text-gray-400">
-          {certificates.length} certificates
-          {filtered.length !== certificates.length && ` · ${filtered.length} shown`}
-        </p>
       </div>
 
       {/* Controls */}
-      <div className="glass mb-8 flex flex-col gap-4 rounded-2xl p-4 sm:flex-row sm:items-center">
-        <input
-          type="text"
-          placeholder="Search certificates…"
-          value={search}
-          onChange={(e) => handleSearchChange(e.target.value)}
-          className="flex-1 rounded-xl border border-gray-200 bg-white/60 px-4 py-2 text-sm outline-none placeholder-gray-400 focus:ring-2 focus:ring-teal-500 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-100"
-        />
+      <div className="glass mb-8 flex flex-col gap-4 rounded-2xl p-3 sm:flex-row sm:items-center">
+        <SearchInput value={search} onChange={handleSearchChange} placeholder="Search certificates…" />
         <select
           value={sort}
           onChange={(e) => handleSortChange(e.target.value as SortKey)}
-          className="rounded-xl border border-gray-200 bg-white/60 px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-100"
+          className="rounded-xl border border-gray-200 bg-white/60 px-3 py-1 text-sm outline-none focus:ring-2 focus:ring-teal-500 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-100"
         >
           <option value="newest">Sort: Newest</option>
           <option value="oldest">Sort: Oldest</option>
