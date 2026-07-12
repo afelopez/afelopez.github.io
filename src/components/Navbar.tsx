@@ -119,6 +119,7 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   href={item.href}
+                  onClick={() => setMobileOpen(false)}
                   className={`rounded-xl px-4 py-3 text-sm font-semibold tracking-wide transition-colors ${
                     !item.href.includes('#') && pathname === item.href
                       ? 'bg-white/60 text-gray-900 dark:bg-gray-800/60 dark:text-white'
