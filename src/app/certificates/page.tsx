@@ -2,6 +2,7 @@
 import { getCredlyBadges } from '@/lib/credly';
 import { getPlatziDiplomas } from '@/lib/platzi';
 import { manualCertificates } from '@/data/certificates';
+import { filterCertificatesByKeywords } from '@/lib/filterCertificates';
 import CertificatesPage from '@/components/CertificatesPage';
 
 export const revalidate = 3600;
@@ -12,7 +13,10 @@ export default async function Page() {
     getPlatziDiplomas('ing.ratosocial'),
   ]);
 
-  const certificates = [...credly, ...platzi, ...manualCertificates].sort(
+  const allCertificates = [...credly, ...platzi, ...manualCertificates];
+  const filtered = filterCertificatesByKeywords(allCertificates);
+  
+  const certificates = filtered.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
