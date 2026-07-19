@@ -26,7 +26,7 @@ const Profile = ({ repos, primarySkills, secondarySkills }: ProfileProps) => {
       <div className="glass rounded-2xl p-8">
         <div className="flex flex-col gap-10 md:flex-row">
           {/* Sidebar: fixed-width profile panel */}
-          <div className="flex flex-col items-center text-center md:w-64 md:flex-shrink-0">
+          <div className="flex flex-col items-center text-center md:w-90 md:flex-shrink-0">
             <motion.div whileHover={{ scale: 1.05 }} transition={{ type: 'spring', stiffness: 300 }}>
               <Image
                 src="/profile.png" // Placeholder
@@ -37,22 +37,21 @@ const Profile = ({ repos, primarySkills, secondarySkills }: ProfileProps) => {
                 loading="eager"
               />
             </motion.div>
-            <h1 className="text-3xl font-bold mt-4">Andres Lopez</h1>
+            <h1 className="text-3xl font-bold mt-4">Andrés López</h1>
             <p className="text-md text-gray-500 dark:text-gray-400 mt-2">
-              Backend Developer
+              Senior Backend Engineer
+              <br /> Ruby · Python · Java · Go · AI/LLM
+            </p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-3 max-w-xs mx-auto">
+              3 years at Mercado Libre operating systems at 250k requests/minute.
+              Now building AI-augmented backends and sharing about it.
             </p>
             <div className="mt-6 text-sm text-gray-600 dark:text-gray-300">
               <p><a href="mailto:dev.andres.lopez@gmail.com" className="hover:text-teal-500">dev.andres.lopez@gmail.com</a></p>
               <p><a href="https://linkedin.com/in/afelopez" target="_blank" rel="noopener noreferrer" className="hover:text-teal-500">linkedin.com/in/afelopez</a></p>
               <p>(+34) 644 980 908</p>
             </div>
-            <div className="mt-4 space-y-1 text-sm text-gray-600 dark:text-gray-300">
-              {spokenLanguages.map((lang) => (
-                <p key={lang.lang}>
-                  <span className="font-medium">{lang.lang}</span> — {lang.level}
-                </p>
-              ))}
-            </div>
+
             <div className="flex gap-3 mt-6">
               <motion.a
                 whileHover={{ scale: 1.05 }}
@@ -61,62 +60,61 @@ const Profile = ({ repos, primarySkills, secondarySkills }: ProfileProps) => {
                 download
                 className="inline-flex items-center gap-1.5 rounded-lg border border-teal-500/60 bg-teal-600/25 px-5 py-2 text-sm font-semibold text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/35 dark:border-teal-400/50 dark:bg-teal-500/20 dark:text-teal-400 dark:hover:bg-teal-500/30"
               >
-                ↓ CV (EN)
+                ↓ CV
               </motion.a>
+              
               <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                href="/cv_es.pdf"
-                download
-                className="inline-flex items-center gap-1.5 rounded-lg border border-teal-500/60 bg-teal-600/25 px-5 py-2 text-sm font-semibold text-teal-600 backdrop-blur-sm transition-colors hover:bg-teal-600/35 dark:border-teal-400/50 dark:bg-teal-500/20 dark:text-teal-400 dark:hover:bg-teal-500/30"
+                href="https://calendly.com/dev-andres-lopez/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-blue-500/60 bg-blue-600/25 px-5 py-2 text-sm font-semibold text-blue-600 backdrop-blur-sm transition-colors hover:bg-blue-600/35 dark:border-blue-400/50 dark:bg-blue-500/20 dark:text-blue-400 dark:hover:bg-blue-500/30"
               >
-                ↓ CV (ES)
+                📅 Schedule Call
               </motion.a>
             </div>
           </div>
 
           {/* Content: Primary+Secondary Skills grid -> Statistics */}
           <div className="flex-1 min-w-0 space-y-10">
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start lg:gap-8">
-              <div className="lg:col-span-5">
-                <h2 className="text-2xl font-bold mb-4">Primary Skills</h2>
-                <div className="space-y-3">
-                  {primarySkills.map((skill, i) => (
-                    <motion.div
-                      key={skill.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.1 * i }}
-                    >
-                      <div className="mb-1 flex items-center justify-between text-sm">
-                        <span className="font-medium">{skill.name}</span>
-                      </div>
-                      <div className="h-2.5 rounded-full bg-teal-600/15 dark:bg-teal-500/10">
-                        <div
-                          className="h-2.5 rounded-full bg-teal-600 dark:bg-teal-400"
-                          style={{ width: `${Math.max(skill.score * 100, 4)}%` }}
-                        />
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Primary Skills</h2>
+              <div className="space-y-3">
+                {primarySkills.map((skill, i) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 * i }}
+                    className="flex items-center gap-4"
+                  >
+                    <span className="font-medium text-sm min-w-32">{skill.name}</span>
+                    <div className="w-full max-w-md h-2.5 rounded-full bg-teal-600/15 dark:bg-teal-500/10">
+                      <div
+                        className="h-2.5 rounded-full bg-teal-600 dark:bg-teal-400"
+                        style={{ width: `${Math.max(skill.score * 100, 4)}%` }}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
               </div>
+            </div>
 
-              <div className="lg:col-span-7">
-                <h2 className="text-2xl font-bold mb-4">Secondary Skills</h2>
-                <div className="flex flex-wrap gap-2">
-                  {secondarySkills.map((skill, i) => (
-                    <motion.span
-                      key={skill}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: Math.min(0.03 * i, 0.5) }}
-                      className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium dark:bg-gray-800"
-                    >
-                      {skill}
-                    </motion.span>
-                  ))}
-                </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Secondary Skills</h2>
+              <div className="flex flex-wrap gap-2">
+                {secondarySkills.map((skill, i) => (
+                  <motion.span
+                    key={skill}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: Math.min(0.03 * i, 0.5) }}
+                    className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium dark:bg-gray-800"
+                  >
+                    {skill}
+                  </motion.span>
+                ))}
               </div>
             </div>
 
@@ -128,7 +126,7 @@ const Profile = ({ repos, primarySkills, secondarySkills }: ProfileProps) => {
                   <p className="text-gray-500 dark:text-gray-400">Public Repos</p>
                 </div>
                 <div className="text-left">
-                  <p className="text-3xl font-bold">5+</p>
+                  <p className="text-3xl font-bold">7</p>
                   <p className="text-gray-500 dark:text-gray-400">Years of Experience</p>
                 </div>
               </div>

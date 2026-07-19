@@ -7,8 +7,8 @@ import NodeBackground from "@/components/NodeBackground";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AL Portfolio",
-  description: "A portfolio of my GitHub projects.",
+  title: "Andrés López — Senior Backend Engineer (Ruby · Python · Java · Go · AI/LLM) | ex-Mercado Libre",
+  description: "Senior backend engineer: 3 years at Mercado Libre operating Golang at 250k req/min. Now building AI-powered backends (LLM, MCP, agents). Remote from Spain.",
   icons: {
     icon: "/favicon.ico",
   },
